@@ -1,0 +1,28 @@
+.vacation {
+  padding: 60px 8%;
+  background-color: #f9fbfd;
+  text-align: center;
+}
+
+.vacation-title h2 {
+  font-weight: bold;
+  font-size: 45px;
+  font-family: "Volkhov";
+}
+.vacation-title span {
+  color: #fa7436;
+}
+.vacation-title > p {
+  font-size: 17px;
+  color: #666;
+  font-family: "poppins";
+  margin-top: 10px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.vacation-top {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,96 @@
+.things {
+  padding: 60px 8%;
+  background-color: #f9fbfd;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-weight: bold;
+  font-size: 45px;
+  font-family: "Volkhov";
+}
+.section-title span {
+  color: #fa7436;
+}
+.section-title > p {
+  font-size: 17px;
+  color: #666;
+  font-family: "poppins";
+  margin-top: 10px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.things-top {
+  display: flex;
+  justify-content: center;
+}
+.flight-vector > img {
+  margin-top: 40px;
+  margin-left: 80px;
+  width: 170px;
+  height: 130px;
+
+  object-fit: contain;
+}
+
+.things-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  font-family: "poppins";
+}
+.thing-card:first-child {
+  background-image: url(../images/wave1.png);
+  background-size: cover; /* cover | contain | auto */
+  background-position: center; /* top | bottom | left | right | center */
+  background-repeat: no-repeat; /* no-repeat | repeat | repeat-x | repeat-y */
+}
+.thing-card:nth-child(2) {
+  background-image: url(../images/wave2.png);
+  background-size: cover; /* cover | contain | auto */
+  background-position: center; /* top | bottom | left | right | center */
+  background-repeat: no-repeat; /* no-repeat | repeat | repeat-x | repeat-y */
+}
+
+.thing-card:last-child {
+  background-image: url(../images/wave1.png);
+  background-size: cover; /* cover | contain | auto */
+  background-position: center; /* top | bottom | left | right | center */
+  background-repeat: no-repeat; /* no-repeat | repeat | repeat-x | repeat-y */
+}
+
+.thing-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 260px;
+  text-align: left;
+}
+.thing-card img {
+  width: 40px;
+  margin-bottom: 10px;
+}
+.thing-card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+.thing-card > p {
+  font-size: 15px;
+  color: #666;
+}
+.things-grid > .thing-card > first:child {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .things-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .thing-card {
+    width: 90%;
+  }
+}
