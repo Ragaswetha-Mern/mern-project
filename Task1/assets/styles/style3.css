@@ -4,12 +4,15 @@
   font-family: "Poppins", sans-serif;
   background: #fff;
   padding: 60px 8%;
+  display: column;
+  justify-content: center;
+  line-height: 20px;
 }
 
 .deals-section h2 {
   font-weight: bold;
-  font-size: 45px;
-  font-family: "Volkhov !important";
+  font-size: 39px;
+  font-family: "Volkhov";
 }
 
 .deals-section h2 span {
@@ -18,12 +21,12 @@
 
 .subtitle {
   color: #666;
-
-  font-size: 17px;
+  font-size: 14px;
   font-family: "poppins";
 }
 
 .deals-grid {
+  padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
