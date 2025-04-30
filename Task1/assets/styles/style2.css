@@ -1,6 +1,6 @@
 .things {
   padding: 60px 8%;
-  background-color: #f9fbfd;
+  background-color: #fefcfb;
   text-align: center;
   line-height: 20px;
 }
@@ -31,8 +31,7 @@
   margin-top: 10px;
   margin-left: 40px;
   width: 120px;
-  height: d;
-
+  height: 120px;
   object-fit: contain;
 }
 
