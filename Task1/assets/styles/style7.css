@@ -1,0 +1,86 @@
+.subscribe {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  height: 830px;
+}
+.subscribe-header {
+  background-color: #fa7436;
+  width: 66%;
+  height: 35%;
+  border-radius: 20px;
+  position: relative;
+}
+
+.subscribe-header-tree {
+  height: 100px;
+  width: 100px;
+  position: relative;
+  margin-top: 6px;
+  margin-left: 812px;
+}
+.subscribe-header-tree img {
+  height: 80%;
+  width: 80%;
+}
+.subscribe-header-circles {
+  position: relative;
+  height: 64.5%;
+  margin-top: -61px;
+  width: 35%;
+}
+.subscribe-header-circles img {
+  height: 130%;
+  margin-left: 5px;
+}
+.subscribe-header-content {
+  margin-top: -250px;
+  display: columnn;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+.subscribe-header-content-1 {
+  font-size: 36px;
+  color: white;
+  padding-top: 20px;
+  padding-left: 55px;
+  font-family: "volkhov";
+  text-align: center;
+}
+.subscribe-header-content-2 {
+  background-color: #ffffff;
+  height: 50px;
+  width: 56%;
+  margin-top: 50px;
+  margin-left: 220px;
+  border-radius: 8px;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.bar-content-1 {
+  color: #999999;
+  font-size: 12px;
+  font-family: "poppins";
+  font-weight: 300;
+}
+.bar-content-2 > button {
+  background-color: #fa7436;
+  color: #ffffff;
+  border: 0px;
+  padding: 15px;
+  margin-left: 4px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-family: "poppins";
+  font-size: 12px;
+  font-weight: 300;
+  border-radius: 6px;
+}
