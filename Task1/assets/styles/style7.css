@@ -1,6 +1,7 @@
 .subscribe {
   width: 100vw;
-  display: flex;
+  display: column;
+  align-items: center;
   justify-content: center;
   height: 830px;
 }
@@ -8,6 +9,7 @@
   background-color: #fa7436;
   width: 66%;
   height: 35%;
+  margin-left: 250px;
   border-radius: 20px;
   position: relative;
 }
@@ -83,4 +85,125 @@
   font-size: 12px;
   font-weight: 300;
   border-radius: 6px;
+}
+.subscribe-footer {
+  background-color: #f7f8fc;
+  width: 100vw;
+  height: auto;
+  margin-top: -150px;
+  display: flex;
+  justify-content: center;
+  gap: 320px;
+  padding-top: 250px;
+  padding-bottom: 30px;
+}
+.sub-foot-1 {
+  display: column;
+  justify-content: space-between;
+
+  margin-left: 40px;
+}
+.sub-foot-1-para {
+  color: #666666;
+  font-size: 12px;
+  font-family: "poppins";
+}
+.sub-foot-2 {
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+}
+.company {
+  font-family: "poppins";
+  color: #4a4a4a;
+}
+
+.company strong {
+  display: block;
+  margin-bottom: 30px;
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.company-items {
+  margin-bottom: 8px;
+  color: #666;
+  opacity: 70%;
+  cursor: pointer;
+  font-size: 13px;
+}
+.contact {
+  font-family: "poppins";
+  color: #4a4a4a;
+}
+
+.contact strong {
+  display: block;
+  margin-bottom: 30px;
+  color: #000;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.contact-items {
+  margin-bottom: 8px;
+  color: #666;
+  opacity: 70%;
+  cursor: pointer;
+  font-size: 13px;
+}
+.more {
+  font-family: "poppins";
+  color: #4a4a4a;
+}
+.more strong {
+  display: block;
+  margin-bottom: 30px;
+  color: #000;
+  font-weight: 600;
+  font-size: 15px;
+}
+.more-items {
+  margin-bottom: 8px;
+  color: #666;
+  opacity: 70%;
+  cursor: pointer;
+  font-size: 13px;
+}
+.footer-border {
+  width: 66%;
+  height: 1px;
+  background-color: #666666;
+  opacity: 30%;
+  display: flex;
+  margin-left: 250px;
+  margin-bottom: 20px;
+}
+.last {
+  display: flex;
+  justify-content: space-between;
+
+  width: 66%;
+  margin-left: 250px;
+  background-color: #f7f8fc;
+}
+.last--1 {
+  font-size: 12px;
+  font-family: "poppins";
+  color: #666666;
+  opacity: 60%;
+}
+.last--2 {
+  font-size: 12px;
+  font-family: "poppins";
+  color: #666666;
+  opacity: 60%;
+}
+.end {
+  width: 100vw;
+  background-color: #f7f8fc;
+  padding-bottom: 30px;
+  display: column;
+  justify-content: space-between;
 }
