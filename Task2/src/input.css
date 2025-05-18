@@ -72,7 +72,7 @@
   .bg-gradient2-explore-custom {
     background: #d1e3ff;
     background: linear-gradient(
-      0deg,
+      180deg,
       rgba(209, 227, 255, 1) 3%,
       rgba(245, 245, 255, 0.99) 86%
     );
