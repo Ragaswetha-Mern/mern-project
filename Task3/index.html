@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Short+Stack&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background-color: burlywood;
+      }
+      header {
+        background-color: greenyellow;
+        color: brown;
+        padding: 20px;
+        font-size: 34px;
+        font-family: "Irish Grover", system-ui;
+        font-weight: 400;
+        font-style: normal;
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+        align-items: center;
+      }
+      header button {
+        font-family: "Short Stack", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 20px;
+        background-color: bisque;
+        color: brown;
+      }
+
+      .start-area button,
+      .end-area button {
+        font-family: "Short Stack", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 20px;
+        background-color: bisque;
+        color: brown;
+      }
+      #playerName {
+        color: brown;
+        font-family: "Short Stack", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+      #infoPanel {
+        color: blue;
+        font-family: "Short Stack", cursive;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px auto;
+      }
+      #game-board {
+        display: none;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+        max-width: 400px;
+        margin: 20px auto;
+      }
+      #finalMessage {
+        font-family: "Short Stack", cursive;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 20px;
+        color: brown;
+      }
+
+      .card {
+        width: 80px;
+        height: 80px;
+        background-color: #4caf50;
+        color: white;
+        font-size: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 8px;
+        user-select: none;
+      }
+      .flipped,
+      .matched {
+        background-color: #2196f3;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: brown;
+        margin: 10px;
+      }
+
+      input {
+        padding: 8px;
+        font-size: 14px;
+      }
+      .info,
+      .start-area,
+      .end-area {
+        margin-top: 10px;
+        font-size: 16px;
+      }
+      .hidden {
+        display: none;
+      }
+      @media (max-width: 500px) {
+        .card {
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>Memory Game</div>
+      <button onclick="restartGame()">Restart</button>
+    </header>
+
+    <div class="container">
+      <div class="start-area">
+        <input id="playerName" placeholder="Enter Player Name" />
+        <button onclick="startGame()">Start Game</button>
+      </div>
+
+      <div class="info hidden" id="infoPanel">
+        <span id="timer">Time: 0s</span> |
+        <span id="score">Score: 0</span>
+      </div>
+
+      <div id="game-board"></div>
+
+      <div class="end-area hidden" id="endPanel">
+        <p id="finalMessage"></p>
+        <button onclick="restartGame()">Play Again</button>
+      </div>
+    </div>
+
+    <audio id="startAudio" src="./assets/game-audio.wav" loop></audio>
+
+    <script>
+      const symbols = [
+        "fa-solid fa-mosquito",
+        "fa-solid fa-fish",
+        "fa-solid fa-paw",
+        "fa-solid fa-dove",
+        "fa-solid fa-feather-pointed",
+        "fa-solid fa-mountain-sun",
+        "fa-solid fa-frog",
+        "fa-solid fa-tree",
+        "fa-solid fa-mosquito",
+        "fa-solid fa-fish",
+        "fa-solid fa-paw",
+        "fa-solid fa-dove",
+        "fa-solid fa-feather-pointed",
+        "fa-solid fa-mountain-sun",
+        "fa-solid fa-frog",
+        "fa-solid fa-tree",
+      ];
+
+      let shuffledSymbols = [];
+      let flippedCards = [];
+      let matchedCards = [];
+      let score = 0;
+      let timer = 0;
+      let interval = null;
+
+      const board = document.getElementById("game-board");
+      const timerDisplay = document.getElementById("timer");
+      const scoreDisplay = document.getElementById("score");
+      const infoPanel = document.getElementById("infoPanel");
+      const endPanel = document.getElementById("endPanel");
+      const finalMessage = document.getElementById("finalMessage");
+      const audio = document.getElementById("startAudio");
+
+      function shuffle(array) {
+        return array.sort(() => 0.5 - Math.random());
+      }
+
+      function createBoard() {
+        board.innerHTML = "";
+        board.style.display = "grid";
+        shuffledSymbols = shuffle([...symbols]);
+        shuffledSymbols.forEach((symbol, index) => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.dataset.symbol = symbol;
+          card.onclick = () => flipCard(card);
+          board.appendChild(card);
+        });
+      }
+
+      function flipCard(card) {
+        if (card.classList.contains("flipped") || matchedCards.includes(card))
+          return;
+        card.classList.add("flipped");
+        const icon = document.createElement("i");
+        icon.className = card.dataset.symbol;
+        card.appendChild(icon);
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+          checkForMatch();
+        }
+      }
+
+      function checkForMatch() {
+        const [card1, card2] = flippedCards;
+        if (card1.dataset.symbol === card2.dataset.symbol) {
+          matchedCards.push(card1, card2);
+          card1.classList.add("matched");
+          card2.classList.add("matched");
+          updateScore();
+
+          if (matchedCards.length === symbols.length) {
+            clearInterval(interval);
+            const name =
+              document.getElementById("playerName").value.trim() || "Player";
+            finalMessage.textContent = `🎉 Congratulations ${name}! You completed the game in ${timer} seconds with a score of ${score}.`;
+            endPanel.classList.remove("hidden");
+          }
+        } else {
+          setTimeout(() => {
+            card1.classList.remove("flipped");
+            card2.classList.remove("flipped");
+            card1.innerHTML = "";
+            card2.innerHTML = "";
+          }, 800);
+        }
+        flippedCards = [];
+      }
+      function updateScore() {
+        score += 10;
+        scoreDisplay.textContent = `Score: ${score}`;
+      }
+      function startTimer() {
+        clearInterval(interval);
+        timer = 0;
+        timerDisplay.textContent = `Time: 0s`;
+        interval = setInterval(() => {
+          timer++;
+          timerDisplay.textContent = `Time: ${timer}s`;
+        }, 1000);
+      }
+      function startGame() {
+        const name = document.getElementById("playerName").value.trim();
+        if (!name) {
+          alert("Please enter your name to start!");
+          return;
+        }
+        if (audio.paused) {
+          audio.play().catch((e) => {
+            console.log("Audio play blocked by browser:", e);
+          });
+        }
+        score = 0;
+        matchedCards = [];
+        flippedCards = [];
+        scoreDisplay.textContent = `Score: 0`;
+        infoPanel.classList.remove("hidden");
+        endPanel.classList.add("hidden");
+        createBoard();
+        startTimer();
+      }
+      function restartGame() {
+        clearInterval(interval);
+        document.getElementById("playerName").value = "";
+        timer = 0;
+        score = 0;
+        flippedCards = [];
+        matchedCards = [];
+        board.innerHTML = "";
+        board.style.display = "none";
+        infoPanel.classList.add("hidden");
+        endPanel.classList.add("hidden");
+      }
+      restartGame();
+    </script>
+  </body>
+</html>
