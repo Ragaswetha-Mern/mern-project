@@ -1,5 +1,6 @@
 const apiUrl = "https://68b6c49373b3ec66cec2a157.mockapi.io/trasactions";
-async function dataSubmit() {
+async function dataSubmit(event) {
+  if (event) event.preventDefault();
   var itemDate = document.getElementById("date").value;
   var itemType = document.getElementById("type").value;
   var itemDescription = document.getElementById("description").value;
@@ -33,7 +34,15 @@ async function dataSubmit() {
   } catch (error) {
     console.log("error", error);
   }
-  return false; // Prevent form reload
+  getValuebyType("Income", "income");
+  getValuebyType("Expenses", "expenses");
+  setTimeout(getBalance, 500);
+  resetData();
+  document.getElementById("amount").value = "";
+  document.getElementById("date").value = "";
+  document.getElementById("type").value = "--SELECT TYPE OF EXPENSE--";
+  document.getElementById("description").value = "";
+  return false;
 }
 async function getData() {
   try {
@@ -109,6 +118,67 @@ async function deleteData(id) {
   } catch (error) {
     console.log("error", error);
   }
+  getValuebyType("Income", "income");
+  getValuebyType("Expenses", "expenses");
+  setTimeout(getBalance, 500);
+  resetData();
 }
 
+async function getValuebyType(type, elementName) {
+  try {
+    var data = await fetch(apiUrl, {
+      method: "GET",
+    });
+    var result = await data.json();
+    var expenses = result.filter((item) => item.type === type);
+    var totalExpenses = 0;
+    if (expenses.length > 0) {
+      totalExpenses = expenses.reduce(
+        (sum, item) => sum + Number(item.amount),
+        0
+      );
+      document.getElementById(elementName).value = `₹${totalExpenses}`;
+    }
+  } catch (error) {
+    console.log("error", error);
+    document.getElementById(elementName).value = "₹0";
+  }
+}
+
+function getBalance() {
+  var income = document.getElementById("income").value.replace("₹", "");
+  var expenses = document.getElementById("expenses").value.replace("₹", "");
+  var balance = Number(income) - Number(expenses);
+  document.getElementById("balance").value = `₹${balance}`;
+  resetData();
+}
+async function resetData() {
+  var bodyValue = document.getElementById("tableBody").innerHTML;
+  if (!bodyValue) {
+    document.getElementById("income").value = "";
+    document.getElementById("expenses").value = "";
+    document.getElementById("balance").value = "";
+  } else {
+    var data = await fetch(apiUrl, {
+      method: "GET",
+    });
+    var result = await data.json();
+    var expenses = result.filter((item) => item.type === "Income");
+    if (expenses.length == 0) {
+      document.getElementById("income").value = "";
+    }
+    var expenses = result.filter((item) => item.type === "Expenses");
+    if (expenses.length == 0) {
+      document.getElementById("expenses").value = "";
+    }
+    var income = document.getElementById("income").value.replace("₹", "");
+    var expenses = document.getElementById("expenses").value.replace("₹", "");
+    if (income == "" && expenses == "") {
+      document.getElementById("balance").value = "";
+    }
+  }
+}
 getData();
+getValuebyType("Income", "income");
+getValuebyType("Expenses", "expenses");
+setTimeout(getBalance, 500);

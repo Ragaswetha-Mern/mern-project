@@ -54,7 +54,7 @@
     </div>
     <div class="flex gap-4 w-full sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 h-96 m-8">
       <div class="w-1/2">
-        <form name="myform" action="" onsubmit="return dataSubmit()">
+        <form name="myform" action="" onsubmit="return dataSubmit(event)">
           <div
             class="h-96 bg-indigo-500 flex flex-col p-6 rounded-lg shadow-lg gap-2"
           >
@@ -73,9 +73,10 @@
               required
               class="bg-blue-400 text-white rounded px-3 py-2 mb-2 shadow"
             >
+              <option value="--">--SELECT TYPE OF EXPENSE--</option>
+
               <option value="Income">Income</option>
               <option value="Expenses">Expenses</option>
-              <option value="others">Others</option>
             </select>
 
             <label for="description" class="text-white font-semibold mb-1"
@@ -136,9 +137,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody id="tableBody">
-              <!-- Transaction rows will be injected here -->
-            </tbody>
+            <tbody id="tableBody"></tbody>
           </table>
         </div>
       </div>
