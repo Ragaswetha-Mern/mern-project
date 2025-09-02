@@ -5,47 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>income task</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
   </head>
   <body class="bg-cyan-300">
     <div
-      class="bg-indigo-500 flex justify-center items-center h-12 w-full sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 m-8"
+      class="bg-indigo-500 flex justify-center items-center h-16 w-full sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 m-8 rounded-lg shadow-lg"
     >
-      INCOME EXPENSE CALCULATOR
+      <span class="text-white text-2xl font-bold tracking-wide"
+        >INCOME EXPENSE CALCULATOR</span
+      >
     </div>
     <div
-      class="bg-indigo-500 h-24 w-full flex justify-around items-center sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 m-8"
+      class="bg-indigo-500 h-28 w-full flex justify-around items-center sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 m-8 rounded-lg shadow-lg"
     >
-      <div>total income</div>
-      <div>total balance</div>
-      <div>total expenses</div>
+      <div class="flex flex-col items-center">
+        <span class="text-white font-semibold mb-1">Total Income</span>
+        <input
+          type="text"
+          id="income"
+          class="bg-blue-400 text-white font-bold rounded px-4 py-2 w-32 text-center shadow"
+          name="income"
+          readonly
+        />
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-white font-semibold mb-1">Total Balance</span>
+        <input
+          type="text"
+          id="balance"
+          class="bg-blue-400 text-white font-bold rounded px-4 py-2 w-32 text-center shadow"
+          name="balance"
+          readonly
+        />
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-white font-semibold mb-1">Total Expenses</span>
+        <input
+          type="text"
+          id="expenses"
+          class="bg-blue-400 text-white font-bold rounded px-4 py-2 w-32 text-center shadow"
+          name="expenses"
+          readonly
+        />
+      </div>
     </div>
-    <div class="flex gap-4 w-full sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 h-96 m-8" >
+    <div class="flex gap-4 w-full sm:w-1/2 md:w-2/3 lg:w-3/4 xl:w-5/6 h-96 m-8">
       <div class="w-1/2">
-<form name="myform" action="" onsubmit="return dataSubmit()">
-    <div class="h-96 bg-indigo-500  flex flex-col  ">
+        <form name="myform" action="" onsubmit="return dataSubmit()">
+          <div
+            class="h-96 bg-indigo-500 flex flex-col p-6 rounded-lg shadow-lg gap-2"
+          >
+            <label for="date" class="text-white font-semibold mb-1">Date</label>
+            <input
+              type="date"
+              id="date"
+              class="bg-blue-400 text-white rounded px-3 py-2 mb-2 shadow"
+              required
+            />
 
-        <label for="">Date</label>
-        <input type="date" class="bg-blue-400" value="" /></br>
+            <label for="type" class="text-white font-semibold mb-1">Type</label>
+            <select
+              name="type"
+              id="type"
+              required
+              class="bg-blue-400 text-white rounded px-3 py-2 mb-2 shadow"
+            >
+              <option value="Income">Income</option>
+              <option value="Expenses">Expenses</option>
+              <option value="others">Others</option>
+            </select>
 
-        <label for="type">Type</label>
-        <select name="type" id="type">
-  <option value="Income">Income</option>
-  <option value="Expenses">Expenses</option>
-  <option value="others">Others</option>
-</select></br>
+            <label for="description" class="text-white font-semibold mb-1"
+              >Description</label
+            >
+            <input
+              type="text"
+              id="description"
+              required
+              class="bg-blue-400 text-white rounded px-3 py-2 mb-2 shadow"
+              name="description"
+            />
 
-        <label for="description">description</label>
-         <input type="text" id="description" class="bg-blue-400" name="description" /></br>
+            <label for="amount" class="text-white font-semibold mb-1"
+              >Amount</label
+            >
+            <input
+              type="number"
+              required
+              id="amount"
+              class="bg-blue-400 text-white rounded px-3 py-2 mb-4 shadow"
+            />
 
-        <label for="amount">amount</label>
-         <input type="number" id="amount" class="bg-blue-400"  /></br></br></br>
-
-          <input type="submit" class="bg-orange-400" value="submit" />
-          
-        </div>
+            <div class="flex justify-center">
+              <input
+                type="submit"
+                class="bg-orange-400 hover:bg-orange-500 text-white font-bold rounded px-4 py-2 shadow transition-colors cursor-pointer"
+                value="Submit"
+              />
+            </div>
+          </div>
         </form>
       </div>
-      <div class="bg-indigo-500 w-1/2 h-96"></div>
+      <div
+        class="bg-indigo-500 w-1/2 h-96 p-4 rounded-lg flex flex-col shadow-lg"
+      >
+        <h2 class="text-white text-xl font-bold mb-2 text-center">
+          Transaction History
+        </h2>
+        <div class="overflow-y-auto flex-1">
+          <table class="min-w-full bg-white rounded shadow">
+            <thead>
+              <tr>
+                <th class="py-2 px-4 bg-indigo-400 text-white font-semibold">
+                  Date
+                </th>
+                <th class="py-2 px-4 bg-indigo-400 text-white font-semibold">
+                  Type
+                </th>
+                <th class="py-2 px-4 bg-indigo-400 text-white font-semibold">
+                  Description
+                </th>
+                <th class="py-2 px-4 bg-indigo-400 text-white font-semibold">
+                  Amount
+                </th>
+                <th class="py-2 px-4 bg-indigo-400 text-white font-semibold">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Transaction rows will be injected here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <script src="./form.js"></script>
   </body>
