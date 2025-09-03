@@ -1,0 +1,4804 @@
+Microsoft Windows [Version 10.0.26100.5074]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>mongosh--version
+'mongosh--version' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\HP>mongosh --version
+2.5.7
+
+C:\Users\HP>mongosh --version
+'mongosh' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\HP>cd..
+
+C:\Users>cd..
+
+C:\>cd "Program Files"
+
+C:\Program Files>cd MongoDB
+
+C:\Program Files\MongoDB>mongosh --version
+'mongosh' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Program Files\MongoDB>cd mongosh
+
+C:\Program Files\MongoDB\mongosh>mongosh --version
+2.5.7
+
+C:\Program Files\MongoDB\mongosh>mongosh
+Current Mongosh Log ID: 68b79def1b9afc3323735188
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.7
+Using MongoDB:          8.0.4
+Using Mongosh:          2.5.7
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+test> show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    80.00 KiB
+test> use zen-class-task
+switched to db zen-class-task
+zen-class-task> show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    80.00 KiB
+zen-class-task> show collections
+
+zen-class-task> db.users.insertOne({ "name":"Ragaswetha", "dob": 07-02-1999, "age":25, "role":"Student"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b79ffd1b9afc3323735189')
+}
+zen-class-task> show dbs
+admin            40.00 KiB
+config          108.00 KiB
+local            80.00 KiB
+zen-class-task    8.00 KiB
+zen-class-task> show collections
+users
+zen-class-task> db.users.updateOne({name:"Ragaswetha", {$set: {dob: new Date("1999-02-07")}}})
+Uncaught:
+SyntaxError: Unexpected token (1:39)
+
+> 1 | db.users.updateOne({name:"Ragaswetha", {$set: {dob: new Date("1999-02-07")}}})
+    |                                        ^
+  2 |
+
+zen-class-task> db.users.updateOne({name:"Ragaswetha"}, {$set: {dob: new Date("1999-02-07")}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find({name:"Ragaswetha"}.pretty()
+... ;
+Uncaught:
+SyntaxError: Unexpected token, expected "," (2:0)
+
+  1 | db.users.find({name:"Ragaswetha"}.pretty()
+
+zen-class-task> show collections
+users
+zen-class-task> db.users.insertOne({name: "Rajavasanthan", dob: new Date("1989-01-01"), age: 36, role: "Mentor"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b7a5cc1b9afc332373518a')
+}
+zen-class-task> db.users.find().pretty()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student'
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Mentor'
+  }
+]
+zen-class-task> db.attendance.insertMany([])
+MongoInvalidArgumentError: Invalid BulkOperation, Batch cannot be empty
+zen-class-task> db.attendance.insertMany([{userId:  ObjectId('68b79ffd1b9afc3323735189'), date: new Date("2020-09-01"), status: "Present" },{userId:  ObjectId('68b79ffd1b9afc3323735189'), date: new Date("2020-09-02"), status: "Present" },{userId:  ObjectId('68b79ffd1b9afc3323735189'), date: newDate("2020-09-03"), status: "Present" },{userId:  ObjectId('68b79ffd1b9afc3323735189'), date: new Date("2020-09-04"), status: "Present" },{userId:ObjectId('68b79ffd1b9afc3323735189'), date: new Date("2020-09-05"), status: "Absent" }])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b7a70a1b9afc332373518b'),
+    '1': ObjectId('68b7a70a1b9afc332373518c'),
+    '2': ObjectId('68b7a70a1b9afc332373518d'),
+    '3': ObjectId('68b7a70a1b9afc332373518e'),
+    '4': ObjectId('68b7a70a1b9afc332373518f')
+  }
+}
+zen-class-task> db.attendance.find().pretty()
+[
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518b'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-01T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518c'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-02T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518d'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-03T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518e'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-04T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518f'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-05T00:00:00.000Z'),
+    status: 'Absent'
+  }
+]
+zen-class-task> db.attendance.find({ user_id: ObjectId("68b79ffd1b9afc3323735189") }).pretty()
+
+zen-class-task> db.attendance.find({ userid: ObjectId("68b79ffd1b9afc3323735189") }).pretty()
+
+zen-class-task> db.attendance.find({ userId: ObjectId("68b79ffd1b9afc3323735189") }).pretty()
+[
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518b'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-01T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518c'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-02T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518d'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-03T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518e'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-04T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518f'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-05T00:00:00.000Z'),
+    status: 'Absent'
+  }
+]
+zen-class-task> db.codekata.insertOne({ question: "Sum of Two Numbers-2", acceptance: "90.97%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b7a9a91b9afc3323735190')
+}
+zen-class-task> db.codekata.insertMany([{ question: "Rectangle Area Calculation", acceptance: "92.53%", difficulty : "Easy", geekoins: 10, category: "Absolute Beginner"},{ question: "Kilometer to Meter and Centimeter", acceptance: "92.32%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"},{ question: "Leap Year Check-2", acceptance: "89.32%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"}]]
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:415)
+
+> 1 | db.codekata.insertMany([{ question: "Rectangle Area Calculation", acceptance: "92.53%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"},{ question: "Kilometer to Meter and Centimeter", acceptance: "92.32%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"},{ question: "Leap Year Check-2", acceptance: "89.32%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"}]]
+    |                                                                                                                             ^
+  2 |
+
+zen-class-task> db.codekata.insertMany([{ question: "Rectangle Area Calculation", acceptance: "92.53%", difficulty : "Easy", geekoins: 10, category: "Absolute Beginner"},{ question: "Kilometer to Meter and Centimeter", acceptance: "92.32%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"},{ question: "Leap Year Check-2", acceptance: "89.32%", difficulty : "Easy", geekoins: 10, category : "Absolute Beginner"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b7aa601b9afc3323735191'),
+    '1': ObjectId('68b7aa601b9afc3323735192'),
+    '2': ObjectId('68b7aa601b9afc3323735193')
+  }
+}
+zen-class-task> db.codekata.find().pretty()
+[
+  {
+    _id: ObjectId('68b7a9a91b9afc3323735190'),
+    question: 'Sum of Two Numbers-2',
+    acceptance: '90.97%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735191'),
+    question: 'Rectangle Area Calculation',
+    acceptance: '92.53%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735192'),
+    question: 'Kilometer to Meter and Centimeter',
+    acceptance: '92.32%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735193'),
+    question: 'Leap Year Check-2',
+    acceptance: '89.32%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  }
+]
+zen-class-task> db.codekata.insertOne({question:"Find the Unique Number-2",acceptance:"94.04%",difficulty:"Medium",geekoins:20,category:"Algorithm"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b7cd1d1b9afc3323735194')
+}
+zen-class-task> db.codekata.insertMany([{question:"Find the odd Number",acceptance:"92.04%",difficulty:"Medium",geekoins:20,category:"Algorithm"},{question:"Find the even Number-2",acceptance:"91.00%",difficulty:"Medium",geekoins:20,category:"Algorithm"},{question:"Find the prime Number-2",acceptance:"92.04%",difficulty:"Hard",geekoins:20,category:"Array"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b7cded1b9afc3323735195'),
+    '1': ObjectId('68b7cded1b9afc3323735196'),
+    '2': ObjectId('68b7cded1b9afc3323735197')
+  }
+}
+zen-class-task> db.codekata.find().pretty()
+[
+  {
+    _id: ObjectId('68b7a9a91b9afc3323735190'),
+    question: 'Sum of Two Numbers-2',
+    acceptance: '90.97%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735191'),
+    question: 'Rectangle Area Calculation',
+    acceptance: '92.53%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735192'),
+    question: 'Kilometer to Meter and Centimeter',
+    acceptance: '92.32%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735193'),
+    question: 'Leap Year Check-2',
+    acceptance: '89.32%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7cd1d1b9afc3323735194'),
+    question: 'Find the Unique Number-2',
+    acceptance: '94.04%',
+    difficulty: 'Medium',
+    geekoins: 20,
+    category: 'Algorithm'
+  },
+  {
+    _id: ObjectId('68b7cded1b9afc3323735195'),
+    question: 'Find the odd Number',
+    acceptance: '92.04%',
+    difficulty: 'Medium',
+    geekoins: 20,
+    category: 'Algorithm'
+  },
+  {
+    _id: ObjectId('68b7cded1b9afc3323735196'),
+    question: 'Find the even Number-2',
+    acceptance: '91.00%',
+    difficulty: 'Medium',
+    geekoins: 20,
+    category: 'Algorithm'
+  },
+  {
+    _id: ObjectId('68b7cded1b9afc3323735197'),
+    question: 'Find the prime Number-2',
+    acceptance: '92.04%',
+    difficulty: 'Hard',
+    geekoins: 20,
+    category: 'Array'
+  }
+]
+zen-class-task> db.topics.insertMany([{moduleNo:1,moduleName:"html",topic:"1.1-html",commencedDate:new date("2020-10-11")},{moduleNo:1,moduleName:"html",topic:"1.2-html",commencedDate:new date("2020-10-13")},{moduleNo:1,moduleName:"html",topic:"1.3-html",commencedDate:new date("2020-10-15")},{moduleNo:1,moduleName:"html",topic:"1.4-html",commencedDate:new date("2020-10-17")},{moduleNo:1,moduleName:"html",topic:"1.5-html",commencedDate:new date("2020-10-19")},{moduleNo:2,moduleName:"css",topic:"2.1-css",commencedDate:new date("2020-10-20")},{moduleNo:3,moduleName:"react",topic:"3.1-react",commencedDate:new date("2020-11-02")})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:616)
+
+> 1 | db.topics.insertMany([{moduleNo:1,moduleName:"html",topic:"1.1-html",commencedDate:new date("2020-10-11")},{moduleNo:1,moduleName:"html",topic:"1.2-html",commencedDate:new date("2020-10-13")},{moduleNo:1,moduleName:"html",topic:"1.3-html",commencedDate:new date("2020-10-15")},{moduleNo:1,moduleName:"html",topic:"1.4-html",commencedDate:new date("2020-10-17")},{moduleNo:1,moduleName:"html",topic:"1.5-html",commencedDate:new date("2020-10-19")},{moduleNo:2,moduleName:"css",topic:"2.1-css",commencedDate:new date("2020-10-20")},{moduleNo:3,moduleName:"react",topic:"3.1-react",commencedDate:new date("2020-11-02")})
+    |                              ^
+  2 |
+
+zen-class-task> db.topics.insertMany([{moduleNo:1,moduleName:"html",topic:"1.1-html",commencedDate:new date("2020-10-11")},{moduleNo:1,moduleName:"html",topic:"1.2-html",commencedDate:new date("2020-10-13")},{moduleNo:1,moduleName:"html",topic:"1.3-html",commencedDate:new date("2020-10-15")},{moduleNo:1,moduleName:"html",topic:"1.4-html",commencedDate:new date("2020-10-17")},{moduleNo:1,moduleName:"html",topic:"1.5-html",commencedDate:new date("2020-10-19")},{moduleNo:2,moduleName:"css",topic:"2.1-css",commencedDate:new date("2020-10-20")},{moduleNo:3,moduleName:"react",topic:"3.1-react",commencedDate:new date("2020-11-02")}])
+ReferenceError: date is not defined
+zen-class-task> db.topics.insertMany([{moduleNo:1,moduleName:"html",topic:"1.1-html",commencedDate:new Date("2020-10-11")},{moduleNo:1,moduleName:"html",topic:"1.2-html",commencedDate:new Date("2020-10-13")},{moduleNo:1,moduleName:"html",topic:"1.3-html",commencedDate:new Date("2020-10-15")},{moduleNo:1,moduleName:"html",topic:"1.4-html",commencedDate:new Date("2020-10-17")},{moduleNo:1,moduleName:"html",topic:"1.5-html",commencedDate:new Date("2020-10-19")},{moduleNo:2,moduleName:"css",topic:"2.1-css",commencedDate:new Date("2020-10-20")},{moduleNo:3,moduleName:"react",topic:"3.1-react",commencedDate:new Date("2020-11-02")})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:616)
+
+> 1 | db.topics.insertMany([{moduleNo:1,moduleName:"html",topic:"1.1-html",commencedDate:new Date("2020-10-11")},{moduleNo:1,moduleName:"html",topic:"1.2-html",commencedDate:new Date("2020-10-13")},{moduleNo:1,moduleName:"html",topic:"1.3-html",commencedDate:new Date("2020-10-15")},{moduleNo:1,moduleName:"html",topic:"1.4-html",commencedDate:new Date("2020-10-17")},{moduleNo:1,moduleName:"html",topic:"1.5-html",commencedDate:new Date("2020-10-19")},{moduleNo:2,moduleName:"css",topic:"2.1-css",commencedDate:new Date("2020-10-20")},{moduleNo:3,moduleName:"react",topic:"3.1-react",commencedDate:new Date("2020-11-02")})
+    |                              ^
+  2 |
+
+zen-class-task> db.topics.insertMany([{moduleNo:1,moduleName:"html",topic:"1.1-html",commencedDate:new Date("2020-10-11")},{moduleNo:1,moduleName:"html",topic:"1.2-html",commencedDate:new Date("2020-10-13")},{moduleNo:1,moduleName:"html",topic:"1.3-html",commencedDate:new Date("2020-10-15")},{moduleNo:1,moduleName:"html",topic:"1.4-html",commencedDate:new Date("2020-10-17")},{moduleNo:1,moduleName:"html",topic:"1.5-html",commencedDate:new Date("2020-10-19")},{moduleNo:2,moduleName:"css",topic:"2.1-css",commencedDate:new Date("2020-10-20")},{moduleNo:3,moduleName:"react",topic:"3.1-react",commencedDate:new Date("2020-11-02")}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b7d17b1b9afc3323735198'),
+    '1': ObjectId('68b7d17b1b9afc3323735199'),
+    '2': ObjectId('68b7d17b1b9afc332373519a'),
+    '3': ObjectId('68b7d17b1b9afc332373519b'),
+    '4': ObjectId('68b7d17b1b9afc332373519c'),
+    '5': ObjectId('68b7d17b1b9afc332373519d'),
+    '6': ObjectId('68b7d17b1b9afc332373519e')
+  }
+}
+zen-class-task> db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}]}
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:735)
+
+> 1 | db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}]}
+    | ^
+  2 |
+
+zen-class-task> db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:735)
+
+> 1 | db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}]})
+    | ^
+  2 |
+
+zen-class-task> {taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}
+...
+... db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}]})
+Uncaught:
+SyntaxError: Missing semicolon. (1:45)
+
+> 1 | {taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}
+    |                                              ^
+  2 |
+  3 | db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"},{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}]})
+  4 |
+
+zen-class-task> db.tasks.find()
+
+zen-class-task> db.tasks.insertMany([{taskName:"Password Reset Flow", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-11"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68b8086a1b9afc332373519f') }
+}
+zen-class-task> db.tasks.insertMany([{taskName:"Login Screen", taskLanguage: ["html"], commencedDate: new  Date("2020-10-16"), category: "Live Practice", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}])
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('68b8089d1b9afc33237351a0') }
+}
+zen-class-task> db.tasks.insertOne([{taskName:"Todo App", taskLanguage: ["html","css"], commencedDate: new  Date("2020-10-19"), category: "Final Project", taskDescriptionUrl: "https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0"}])
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b808ef1b9afc33237351a1')
+}
+zen-class-task> db.tasks.find()
+[
+  {
+    _id: ObjectId('68b8086a1b9afc332373519f'),
+    taskName: 'Password Reset Flow',
+    taskLanguage: [ 'html', 'css' ],
+    commencedDate: ISODate('2020-10-11T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    _id: ObjectId('68b8089d1b9afc33237351a0'),
+    taskName: 'Login Screen',
+    taskLanguage: [ 'html' ],
+    commencedDate: ISODate('2020-10-16T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    '0': {
+      taskName: 'Todo App',
+      taskLanguage: [ 'html', 'css' ],
+      commencedDate: ISODate('2020-10-19T00:00:00.000Z'),
+      category: 'Final Project',
+      taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+    },
+    _id: ObjectId('68b808ef1b9afc33237351a1')
+  }
+]
+zen-class-task> db.mentors.insertMany([{mentorId:1,mentorName:"vijai"},{mentorId:2,mentorName:"vivek"},{mentorId:3,mentorName:"seetha"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b80a701b9afc33237351a2'),
+    '1': ObjectId('68b80a701b9afc33237351a3'),
+    '2': ObjectId('68b80a701b9afc33237351a4')
+  }
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student'
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Mentor'
+  }
+]
+zen-class-task> db.users.updateOne({name:"Rajavasanthan",{$set:"Student"})
+Uncaught:
+SyntaxError: Unexpected token (1:41)
+
+> 1 | db.users.updateOne({name:"Rajavasanthan",{$set:"Student"})
+    |                                          ^
+  2 |
+
+zen-class-task> db.users.updateOne({name:"Rajavasanthan"},{$set:{role:"Student"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student'
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student'
+  }
+]
+zen-class-task> db.users.updateMany({role:"Student"},{$set:{mentorId:ObjectId('68b80a701b9afc33237351a2')}}
+... db.users.updateMany({role:"Student"},{$set:{mentorId:ObjectId('68b80a701b9afc33237351a2')}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (2:0)
+
+  1 | db.users.updateMany({role:"Student"},{$set:{mentorId:ObjectId('68b80a701b9afc33237351a2')}}
+> 2 | db.users.updateMany({role:"Student"},{$set:{mentorId:ObjectId('68b80a701b9afc33237351a2')}})
+    | ^
+  3 |
+
+zen-class-task> db.users.updateMany({role:"Student"},{$set:{mentorId:ObjectId('68b80a701b9afc33237351a2')}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  }
+]
+zen-class-task> db.insertMany([ {
+...     _id: ObjectId('68b79ffd1b9afc3323735189'),
+...     name: 'Ragaswetha',
+...     dob: ISODate('1999-02-07T00:00:00.000Z'),
+...     age: 25,
+...     role: 'Student',
+...     mentorId: ObjectId('68b80a701b9afc33237351a2')
+...
+...
+...
+...
+... ;
+Uncaught:
+SyntaxError: Unexpected token, expected "," (12:0)
+
+  10 |
+  11 |
+> 12 | ;
+     | ^
+  13 |
+
+zen-class-task> db.insertMany([ {name: 'user1 name: 'Ragaswetha',
+... ...     dob: ISODate('1999-02-07T00:00:00.000Z'),
+... ...     age: 25,
+... ...     role: 'Student',
+... ;...     mentorId: ObjectId('68b80a701b9afc33237351a2')
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:37)
+
+> 1 | db.insertMany([ {name: 'user1 name: 'Ragaswetha',
+    |                                      ^
+  2 | ...     dob: ISODate('1999-02-07T00:00:00.000Z'),
+  3 | ...     age: 25,
+  4 | ...     role: 'Student',
+
+zen-class-task> db.insertMany([ { name: 'User1', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2') },{ name: 'User2', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User3', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User4', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')}])
+TypeError: db.insertMany is not a function
+zen-class-task> db.users.insertMany([ { name: 'User1', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2') },{ name: 'User2', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User3', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ namename: 'User4', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b80faa1b9afc33237351a5'),
+    '1': ObjectId('68b80faa1b9afc33237351a6'),
+    '2': ObjectId('68b80faa1b9afc33237351a7'),
+    '3': ObjectId('68b80faa1b9afc33237351a8')
+  }
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  }
+]
+zen-class-task> db.users.insertMany([ { name: 'User5', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2') },{ name: 'User6', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User7', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User8', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b810071b9afc33237351a9'),
+    '1': ObjectId('68b810071b9afc33237351aa'),
+    '2': ObjectId('68b810071b9afc33237351ab'),
+    '3': ObjectId('68b810071b9afc33237351ac')
+  }
+}
+zen-class-task> db.users.insertMany([ { name: 'User9', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2') },{ name: 'User10', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User11', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')},{ name: 'User12', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId: ObjectId('68b80a701b9afc33237351a2')}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b8106b1b9afc33237351ad'),
+    '1': ObjectId('68b8106b1b9afc33237351ae'),
+    '2': ObjectId('68b8106b1b9afc33237351af'),
+    '3': ObjectId('68b8106b1b9afc33237351b0')
+  }
+}
+zen-class-task> db.users.insertMany([ { name: 'User13', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId:  ObjectId('68b80a701b9afc33237351a4') },{ name: 'User14', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId:  ObjectId('68b80a701b9afc33237351a4')}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b811551b9afc33237351b1'),
+    '1': ObjectId('68b811551b9afc33237351b2')
+  }
+}
+zen-class-task> db.users.insertMany([ { name: 'User15', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId:  ObjectId('68b80a701b9afc33237351a4') },{ name: 'User16', dob: ISODate('1999-02-07T00:00:00.000Z'), age: 25, role: 'Student', mentorId:  ObjectId('68b80a701b9afc33237351a4')}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b811891b9afc33237351b3'),
+    '1': ObjectId('68b811891b9afc33237351b4')
+  }
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  }
+]
+zen-class-task> db.companydrives.insertOne({compantId:1,companyName:"hcl"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b815391b9afc33237351b5')
+}
+zen-class-task> db.companydrives.insertOne({compantId:2,companyName:"infosys"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b815491b9afc33237351b6')
+}
+zen-class-task> db.companydrives.insertOne({compantId:3,companyName:"tcs"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b815561b9afc33237351b7')
+}
+zen-class-task> db.companydrives.insertOne({compantId:4,companyName:"wipro"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b815641b9afc33237351b8')
+}
+zen-class-task> db.companydrives.insertOne({compantId:5,companyName:"cts"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b815871b9afc33237351b9')
+}
+zen-class-task> db.companydrives.find()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl'
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys'
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs'
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro'
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts'
+  }
+]
+zen-class-task> db.users.UpdateMany({name:["user1","user2","user3"]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:109)
+
+> 1 | db.users.UpdateMany({name:["user1","user2","user3"]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}}])
+    |                                                                                                              ^
+  2 |
+
+zen-class-task> db.users.UpdateMany({name:["user1","user2","user3"]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+TypeError: db.users.UpdateMany is not a function
+zen-class-task> db.users.updateMany({name:["user1","user2","user3"]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+zen-class-task> db.users.updateMany([{name:"user1"},{name:"user2"},{name:"user3"}]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:66)
+
+> 1 | db.users.updateMany([{name:"user1"},{name:"user2"},{name:"user3"}]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+    |                                                                   ^
+  2 |
+
+zen-class-task> db.users.updateMany([{name:"user1"},{name:"user2"},{name:"user3"}],{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+MongoServerError[TypeMismatch]: BSON field 'update.updates.q' is the wrong type 'array', expected type 'object'
+zen-class-task> db.users.updateMany({name:["user1","user2","user3"]},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+zen-class-task> db.users.updateMany({name:{$in:["user1","user2","user3"]}},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find({name:{$in:["user1","user2","user3"]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.users.find({name:{$in:["user1","user2","user3"]})
+    |                                                    ^
+  2 |
+
+zen-class-task> db.users.find({name:{$in:["user1","user2","user3"]}})
+
+zen-class-task> db.users.find({name:{$in:["User1","user2","user3"]}})
+[
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  }
+]
+zen-class-task> db.users.updateMany({name:{$in:["User1","User2","User3"]}},{$set:{companyId: ObjectId('68b815491b9afc33237351b6')}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find({name:{$in:["User1","user2","user3"]}})
+[
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6')
+  }
+]
+zen-class-task> db.users.aggregate([
+...   {
+...     $lookup: {
+...       from: "companies",
+...       localField: "companyId",
+...       foreignField: "_id",
+...       as: "company_info"
+...     }
+...   },
+...   { $unwind: "$company_info" },
+...   {
+...     $project: {
+...       _id: 0,
+...       student: "$name",
+...       company: "$company_info.name",
+...       role: 1
+...     }
+...   }
+... ])
+...
+
+zen-class-task> db.companies.find()
+
+zen-class-task> db.company.find()
+
+zen-class-task> db.companydrives.find()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl'
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys'
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs'
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro'
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts'
+  }
+]
+zen-class-task> db.companydrives.UpdateMany({_id: {$in:[ObjectId('68b815391b9afc33237351b5'),ObjectId('68b815641b9afc33237351b8'),ObjectId('68b815871b9afc33237351b9')]}},{$set:{driveDate: new Date("2020-10-15")}})
+TypeError: db.companydrives.UpdateMany is not a function
+zen-class-task> db.companydrives.updateMany({_id: {$in:[ObjectId('68b815391b9afc33237351b5'),ObjectId('68b815641b9afc33237351b8'),ObjectId('68b815871b9afc33237351b9')]}},{$set:{driveDate: new Date("2020-10-15")}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+zen-class-task> db.companydrives.updateMany({_id: {$in:[ObjectId('68b815491b9afc33237351b6'),ObjectId('68b815561b9afc33237351b7')]}},{$set:{driveDate: new Date("2020-11-18")}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+zen-class-task> db.companydrives.find()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.companydrives.find().pretty()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.companydrives.find()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.companydrives.aggregate([
+...   {
+...     $lookup: {
+...       from: "users",
+...       localField: "_id",        // companydrives._id (companyId)
+...       foreignField: "companyId", // users.companyId
+...       as: "appearedStudents"
+...     }
+...   },
+...   {
+...     $project: {
+...       _id: 0,
+...       companyName: 1,
+...       driveDate: 1,
+...       students: "$appearedStudents.name"
+...     }
+...   }
+... ])
+[
+  {
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    students: []
+  },
+  {
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z'),
+    students: [ 'User1', 'User2', 'User3' ]
+  },
+  {
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z'),
+    students: []
+  },
+  {
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    students: []
+  },
+  {
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    students: []
+  }
+]
+zen-class-task> db.companydrives.find({driveDate: {    $gte: ISODate("2020-10-15T00:00:00.000Z"),    $lte: ISODate("2020-10-31T23:59:59.999Z")}})
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.codekata.find()
+[
+  {
+    _id: ObjectId('68b7a9a91b9afc3323735190'),
+    question: 'Sum of Two Numbers-2',
+    acceptance: '90.97%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735191'),
+    question: 'Rectangle Area Calculation',
+    acceptance: '92.53%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735192'),
+    question: 'Kilometer to Meter and Centimeter',
+    acceptance: '92.32%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7aa601b9afc3323735193'),
+    question: 'Leap Year Check-2',
+    acceptance: '89.32%',
+    difficulty: 'Easy',
+    geekoins: 10,
+    category: 'Absolute Beginner'
+  },
+  {
+    _id: ObjectId('68b7cd1d1b9afc3323735194'),
+    question: 'Find the Unique Number-2',
+    acceptance: '94.04%',
+    difficulty: 'Medium',
+    geekoins: 20,
+    category: 'Algorithm'
+  },
+  {
+    _id: ObjectId('68b7cded1b9afc3323735195'),
+    question: 'Find the odd Number',
+    acceptance: '92.04%',
+    difficulty: 'Medium',
+    geekoins: 20,
+    category: 'Algorithm'
+  },
+  {
+    _id: ObjectId('68b7cded1b9afc3323735196'),
+    question: 'Find the even Number-2',
+    acceptance: '91.00%',
+    difficulty: 'Medium',
+    geekoins: 20,
+    category: 'Algorithm'
+  },
+  {
+    _id: ObjectId('68b7cded1b9afc3323735197'),
+    question: 'Find the prime Number-2',
+    acceptance: '92.04%',
+    difficulty: 'Hard',
+    geekoins: 20,
+    category: 'Array'
+  }
+]
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  }
+]
+zen-class-task> db.users.updateMany({name:{$in:{['User1','Ragaswetha','User2']}}},{$set:{codekataSolvedIds:[ObjectId('68b7aa601b9afc3323735191'),ObjectId('68b7aa601b9afc3323735192'),ObjectId('68b7cd1d1b9afc3323735194'),ObjectId('68b7cded1b9afc3323735197')]}})
+Uncaught:
+SyntaxError: Unexpected token, expected "]" (1:40)
+
+> 1 | db.users.updateMany({name:{$in:{['User1','Ragaswetha','User2']}}},{$set:{codekataSolvedIds:[ObjectId('68b7aa601b9afc3323735191'),ObjectId('68b7aa601b9afc3323735192'),ObjectId('68b7cd1d1b9afc3323735194'),ObjectId('68b7cded1b9afc3323735197')]}})
+    |                                         ^
+  2 |
+
+zen-class-task>  db.users.updateMany({name:{$in:['User1','Ragaswetha','User2']}},{$set:{codekataSolvedIds:[ObjectId('68b7aa601b9afc3323735191'),ObjectId('68b7aa601b9afc3323735192'),ObjectId('68b7cd1d1b9afc3323735194'),ObjectId('68b7cded1b9afc3323735197')]}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4')
+  }
+]
+zen-class-task> db.users.updateMany(
+...   { name: { $nin: ['User1', 'Ragaswetha', 'User2'] } },
+...   { $set: { codekataSolvedIds: null } }
+...
+... ;
+Uncaught:
+SyntaxError: Unexpected token, expected "," (5:0)
+
+  3 |   { $set: { codekataSolvedIds: null } }
+  4 |
+> 5 | ;
+    | ^
+  6 |
+
+zen-class-task> db.users.updateMany( { name: { $nin: ['User1', 'Ragaswetha', 'User2'] } }, { $set: { codekataSolvedIds: [] } } ;
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:111)
+
+> 1 | db.users.updateMany( { name: { $nin: ['User1', 'Ragaswetha', 'User2'] } }, { $set: { codekataSolvedIds: [] } } ;
+    |                                                                                                                ^
+  2 |
+
+zen-class-task> db.users.updateMany( { name: { $nin: ['User1', 'Ragaswetha', 'User2'] } }, { $set: { codekataSolvedIds: [] } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 15,
+  modifiedCount: 15,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: []
+  }
+]
+zen-class-task> db.users.updateMany(
+...   { companyId: { $exists: false } },
+...   { $set: { companyId: ObjectId("000000000000000000000000") } }
+... )
+...
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 15,
+  modifiedCount: 15,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  }
+]
+zen-class-task> db.attendance.find()
+[
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518b'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-01T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518c'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-02T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518d'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-03T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518e'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-04T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518f'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-05T00:00:00.000Z'),
+    status: 'Absent'
+  }
+]
+zen-class-task> db.attendance.updateOne({name:"user1"},$set:{new Date (17-10-2020): {status:'Present'}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:43)
+
+> 1 | db.attendance.updateOne({name:"user1"},$set:{new Date (17-10-2020): {status:'Present'}})
+    |                                            ^
+  2 |
+
+zen-class-task> db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020)}, {status:'Present'}}})
+Uncaught:
+SyntaxError: Unexpected token (1:75)
+
+> 1 | db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020)}, {status:'Present'}}})
+    |                                                                            ^
+  2 |
+
+zen-class-task> db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020), {status:'Present'}}})
+Uncaught:
+SyntaxError: Unexpected token (1:74)
+
+> 1 | db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020), {status:'Present'}}})
+    |                                                                           ^
+  2 |
+
+zen-class-task> db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020), status:'Present'}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:92)
+
+> 1 | db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020), status:'Present'}}})
+    |                                                                                             ^
+  2 |
+
+zen-class-task> db.attendance.updateOne({name:"user1"},{$set:{date:new Date (17-10-2020), status:'Present'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+zen-class-task> db.attendance.updateOne({name:"User1"},{$set:{date:new Date (17-10-2020), status:'Present'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+zen-class-task> db.attendance.find()
+[
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518b'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-01T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518c'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-02T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518d'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-03T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518e'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-04T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518f'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-05T00:00:00.000Z'),
+    status: 'Absent'
+  }
+]
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  }
+]
+zen-class-task> db.attendance.find()
+[
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518b'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-01T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518c'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-02T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518d'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-03T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518e'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-04T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518f'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-05T00:00:00.000Z'),
+    status: 'Absent'
+  }
+]
+zen-class-task> db.attendance.insertOne({userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-17"),status:'Present'})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68b82f831b9afc33237351ba')
+}
+zen-class-task> db.attendance.insertMany({userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-21"),status:'Absent'},{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-25"),status:'Present'},{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-14"),status:'Present'},{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-31"),status:'Absent'})
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+zen-class-task> db.attendance.insertMany([{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-21"),status:'Absent'},{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-25"),status:'Present'},{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-14"),status:'Present'},{userId:ObjectId('68b810071b9afc33237351ac'),date:new Date("2020-10-31"),status:'Absent'}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68b830531b9afc33237351bb'),
+    '1': ObjectId('68b830531b9afc33237351bc'),
+    '2': ObjectId('68b830531b9afc33237351bd'),
+    '3': ObjectId('68b830531b9afc33237351be')
+  }
+}
+zen-class-task> db.attendance.find()
+[
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518b'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-01T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518c'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-02T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518d'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-03T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518e'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-04T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b7a70a1b9afc332373518f'),
+    userId: ObjectId('68b79ffd1b9afc3323735189'),
+    date: ISODate('2020-09-05T00:00:00.000Z'),
+    status: 'Absent'
+  },
+  {
+    _id: ObjectId('68b82f831b9afc33237351ba'),
+    userId: ObjectId('68b810071b9afc33237351ac'),
+    date: ISODate('2020-10-17T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b830531b9afc33237351bb'),
+    userId: ObjectId('68b810071b9afc33237351ac'),
+    date: ISODate('2020-10-21T00:00:00.000Z'),
+    status: 'Absent'
+  },
+  {
+    _id: ObjectId('68b830531b9afc33237351bc'),
+    userId: ObjectId('68b810071b9afc33237351ac'),
+    date: ISODate('2020-10-25T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b830531b9afc33237351bd'),
+    userId: ObjectId('68b810071b9afc33237351ac'),
+    date: ISODate('2020-10-14T00:00:00.000Z'),
+    status: 'Present'
+  },
+  {
+    _id: ObjectId('68b830531b9afc33237351be'),
+    userId: ObjectId('68b810071b9afc33237351ac'),
+    date: ISODate('2020-10-31T00:00:00.000Z'),
+    status: 'Absent'
+  }
+]
+zen-class-task> db.tasks.find()
+[
+  {
+    _id: ObjectId('68b8086a1b9afc332373519f'),
+    taskName: 'Password Reset Flow',
+    taskLanguage: [ 'html', 'css' ],
+    commencedDate: ISODate('2020-10-11T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    _id: ObjectId('68b8089d1b9afc33237351a0'),
+    taskName: 'Login Screen',
+    taskLanguage: [ 'html' ],
+    commencedDate: ISODate('2020-10-16T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    '0': {
+      taskName: 'Todo App',
+      taskLanguage: [ 'html', 'css' ],
+      commencedDate: ISODate('2020-10-19T00:00:00.000Z'),
+      category: 'Final Project',
+      taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+    },
+    _id: ObjectId('68b808ef1b9afc33237351a1')
+  }
+]
+zen-class-task> db.users.updateOne({userId: ObjectId('68b79ffd1b9afc3323735189')},{$set:taskassigned:[{taskId: ObjectId('68b8086a1b9afc332373519f'),taskSub:new Date("2020-10-17"),isSubmitted:true},{taskId: ObjectId('68b8089d1b9afc33237351a0'),taskSub:new Date("2020-10-25"),isSubmitted:false}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:84)
+
+> 1 | db.users.updateOne({userId: ObjectId('68b79ffd1b9afc3323735189')},{$set:taskassigned:[{taskId: ObjectId('68b8086a1b9afc332373519f'),taskSub:new Date("2020-10-17"),isSubmitted:true},{taskId: ObjectId('68b8089d1b9afc33237351a0'),taskSub:new Date("2020-10-25"),isSubmitted:false}]})
+    |                                                                                     ^
+  2 |
+
+zen-class-task> db.users.updateOne({_id: ObjectId('68b79ffd1b9afc3323735189')},{$set:taskassigned:[{taskId: ObjectId('68b8086a1b9afc332373519f'),taskSub:new Date("2020-10-17"),isSubmitted:true},{taskId: ObjectId('68b8089d1b9afc33237351a0'),taskSub:new Date("2020-10-25"),isSubmitted:false}]})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:81)
+
+> 1 | db.users.updateOne({_id: ObjectId('68b79ffd1b9afc3323735189')},{$set:taskassigned:[{taskId: ObjectId('68b8086a1b9afc332373519f'),taskSub:new Date("2020-10-17"),isSubmitted:true},{taskId: ObjectId('68b8089d1b9afc33237351a0'),taskSub:new Date("2020-10-25"),isSubmitted:false}]})
+    |                                                                                  ^
+  2 |
+
+zen-class-task> db.users.updateOne({_id: ObjectId('68b79ffd1b9afc3323735189')},{$set:{taskassigned:[{taskId: ObjectId('68b8086a1b9afc332373519f'),taskSub:new Date("2020-10-17"),isSubmitted:true},{taskId: ObjectId('68b8089d1b9afc33237351a0'),taskSub:new Date("2020-10-25"),isSubmitted:false}]}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+zen-class-task> db.users.find({_id:ObjectId('68b79ffd1b9afc3323735189')})
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  }
+]
+zen-class-task> db.task.find()
+
+zen-class-task> db.tasks.find()
+[
+  {
+    _id: ObjectId('68b8086a1b9afc332373519f'),
+    taskName: 'Password Reset Flow',
+    taskLanguage: [ 'html', 'css' ],
+    commencedDate: ISODate('2020-10-11T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    _id: ObjectId('68b8089d1b9afc33237351a0'),
+    taskName: 'Login Screen',
+    taskLanguage: [ 'html' ],
+    commencedDate: ISODate('2020-10-16T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    '0': {
+      taskName: 'Todo App',
+      taskLanguage: [ 'html', 'css' ],
+      commencedDate: ISODate('2020-10-19T00:00:00.000Z'),
+      category: 'Final Project',
+      taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+    },
+    _id: ObjectId('68b808ef1b9afc33237351a1')
+  }
+]
+zen-class-task> db.tasks.deleteOne({ _id: ObjectId('68b808ef1b9afc33237351a1')})
+{ acknowledged: true, deletedCount: 1 }
+zen-class-task> db.tasks.find()
+[
+  {
+    _id: ObjectId('68b8086a1b9afc332373519f'),
+    taskName: 'Password Reset Flow',
+    taskLanguage: [ 'html', 'css' ],
+    commencedDate: ISODate('2020-10-11T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  },
+  {
+    _id: ObjectId('68b8089d1b9afc33237351a0'),
+    taskName: 'Login Screen',
+    taskLanguage: [ 'html' ],
+    commencedDate: ISODate('2020-10-16T00:00:00.000Z'),
+    category: 'Live Practice',
+    taskDescriptionUrl: 'https://docs.google.com/document/d/1zlRpu48S1Q5wEJ1R32cNDrLdsAq79ZXbLxHqS8SaW5M/edit?tab=t.0'
+  }
+]
+zen-class-task> //Task1:Find all the topics and tasks which are thought in the month of October
+
+zen-class-task> db.topics.find()
+[
+  {
+    _id: ObjectId('68b7d17b1b9afc3323735198'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.1-html',
+    commencedDate: ISODate('2020-10-11T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc3323735199'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.2-html',
+    commencedDate: ISODate('2020-10-13T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519a'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.3-html',
+    commencedDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519b'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.4-html',
+    commencedDate: ISODate('2020-10-17T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519c'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.5-html',
+    commencedDate: ISODate('2020-10-19T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519d'),
+    moduleNo: 2,
+    moduleName: 'css',
+    topic: '2.1-css',
+    commencedDate: ISODate('2020-10-20T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519e'),
+
+zen-class-task> db.topics.find({commencedDate:{$gte: new Date('2020-09-30'), $lte: new Date('2020-11-01')}})
+[
+  {
+    _id: ObjectId('68b7d17b1b9afc3323735198'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.1-html',
+    commencedDate: ISODate('2020-10-11T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc3323735199'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.2-html',
+    commencedDate: ISODate('2020-10-13T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519a'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.3-html',
+    commencedDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519b'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.4-html',
+    commencedDate: ISODate('2020-10-17T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519c'),
+    moduleNo: 1,
+    moduleName: 'html',
+    topic: '1.5-html',
+    commencedDate: ISODate('2020-10-19T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b7d17b1b9afc332373519d'),
+    moduleNo: 2,
+    moduleName: 'css',
+    topic: '2.1-css',
+    commencedDate: ISODate('2020-10-20T00:00:00.000Z')
+  }
+]
+zen-class-task> //Find all the company drives which appeared between 15 oct-2020 and 31-oct-2020
+
+zen-class-task> db.companydrives.find()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.companydrives.find({driveDate:{$gte:new Date("2020-09-30"),$lte:new Date("2020-11-01")}})
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.companydrives.find({driveDate:{$gte:new Date("2020-10-15"),$lte:new Date("2020-11-01")}})
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> db.companydrives.find()
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z')
+  }
+]
+zen-class-task> //Find all the company drives and students who are appeared for the placement
+
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  }
+]
+zen-class-task> db.companydrives.aggregate({})
+MongoServerError[Location40323]: A pipeline stage specification object must contain exactly one field.
+zen-class-task> db.companydrives.aggregate({ from: users,localField:_id,foriegnField:companyId},)
+ReferenceError: users is not defined
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: users,localField:_id,foriegnField:companyId, as: driveUsers}}])
+ReferenceError: users is not defined
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:_id,foriegnField:companyId, as: driveUsers}}])
+ReferenceError: _id is not defined
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:_id,foreignField:companyId, as: driveUsers}}])
+ReferenceError: _id is not defined
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}}])
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    driveUsers: []
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z'),
+    driveUsers: [
+      {
+        _id: ObjectId('68b80faa1b9afc33237351a5'),
+        name: 'User1',
+        dob: ISODate('1999-02-07T00:00:00.000Z'),
+        age: 25,
+        role: 'Student',
+        mentorId: ObjectId('68b80a701b9afc33237351a2'),
+        companyId: ObjectId('68b815491b9afc33237351b6'),
+        codekataSolvedIds: [
+          ObjectId('68b7aa601b9afc3323735191'),
+          ObjectId('68b7aa601b9afc3323735192'),
+          ObjectId('68b7cd1d1b9afc3323735194'),
+          ObjectId('68b7cded1b9afc3323735197')
+        ]
+      },
+      {
+        _id: ObjectId('68b80faa1b9afc33237351a6'),
+        name: 'User2',
+        dob: ISODate('1999-02-07T00:00:00.000Z'),
+        age: 25,
+        role: 'Student',
+        mentorId: ObjectId('68b80a701b9afc33237351a2'),
+        companyId: ObjectId('68b815491b9afc33237351b6'),
+        codekataSolvedIds: [
+          ObjectId('68b7aa601b9afc3323735191'),
+          ObjectId('68b7aa601b9afc3323735192'),
+          ObjectId('68b7cd1d1b9afc3323735194'),
+          ObjectId('68b7cded1b9afc3323735197')
+        ]
+      },
+      {
+        _id: ObjectId('68b80faa1b9afc33237351a7'),
+        name: 'User3',
+        dob: ISODate('1999-02-07T00:00:00.000Z'),
+        age: 25,
+        role: 'Student',
+        mentorId: ObjectId('68b80a701b9afc33237351a2'),
+        companyId: ObjectId('68b815491b9afc33237351b6'),
+        codekataSolvedIds: []
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z'),
+    driveUsers: []
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    driveUsers: []
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    driveUsers: []
+  }
+]
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"},{$project:{"driveUsers.name":1}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:114)
+
+> 1 | db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"},{$project:{"driveUsers.name":1}}}])
+    |                                                                                                                   ^
+  2 |
+
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}},{$project:{"driveUsers.name":1}}])
+[
+  { _id: ObjectId('68b815391b9afc33237351b5'), driveUsers: [] },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    driveUsers: [ { name: 'User1' }, { name: 'User2' }, { name: 'User3' } ]
+  },
+  { _id: ObjectId('68b815561b9afc33237351b7'), driveUsers: [] },
+  { _id: ObjectId('68b815641b9afc33237351b8'), driveUsers: [] },
+  { _id: ObjectId('68b815871b9afc33237351b9'), driveUsers: [] }
+]
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}},{$project:{"driveUsers.name":1,"driveUsers.companyName"}}])
+Uncaught:
+SyntaxError: Unexpected token (1:170)
+
+> 1 | db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}},{$project:{"driveUsers.name":1,"driveUsers.companyName"}}])
+    |                            ^
+  2 |
+
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}},{$project:{"driveUsers.name":1,"driveUsers.companyName":1}}])
+[
+  { _id: ObjectId('68b815391b9afc33237351b5'), driveUsers: [] },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    driveUsers: [ { name: 'User1' }, { name: 'User2' }, { name: 'User3' } ]
+  },
+  { _id: ObjectId('68b815561b9afc33237351b7'), driveUsers: [] },
+  { _id: ObjectId('68b815641b9afc33237351b8'), driveUsers: [] },
+  { _id: ObjectId('68b815871b9afc33237351b9'), driveUsers: [] }
+]
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}},{$project:{"driveUsers.name":1,companyName:1,_id:0}}])
+[
+  { companyName: 'hcl', driveUsers: [] },
+  {
+    companyName: 'infosys',
+    driveUsers: [ { name: 'User1' }, { name: 'User2' }, { name: 'User3' } ]
+  },
+  { companyName: 'tcs', driveUsers: [] },
+  { companyName: 'wipro', driveUsers: [] },
+  { companyName: 'cts', driveUsers: [] }
+]
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}}])
+[
+  {
+    _id: ObjectId('68b815391b9afc33237351b5'),
+    compantId: 1,
+    companyName: 'hcl',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    driveUsers: []
+  },
+  {
+    _id: ObjectId('68b815491b9afc33237351b6'),
+    compantId: 2,
+    companyName: 'infosys',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z'),
+    driveUsers: [
+      {
+        _id: ObjectId('68b80faa1b9afc33237351a5'),
+        name: 'User1',
+        dob: ISODate('1999-02-07T00:00:00.000Z'),
+        age: 25,
+        role: 'Student',
+        mentorId: ObjectId('68b80a701b9afc33237351a2'),
+        companyId: ObjectId('68b815491b9afc33237351b6'),
+        codekataSolvedIds: [
+          ObjectId('68b7aa601b9afc3323735191'),
+          ObjectId('68b7aa601b9afc3323735192'),
+          ObjectId('68b7cd1d1b9afc3323735194'),
+          ObjectId('68b7cded1b9afc3323735197')
+        ]
+      },
+      {
+        _id: ObjectId('68b80faa1b9afc33237351a6'),
+        name: 'User2',
+        dob: ISODate('1999-02-07T00:00:00.000Z'),
+        age: 25,
+        role: 'Student',
+        mentorId: ObjectId('68b80a701b9afc33237351a2'),
+        companyId: ObjectId('68b815491b9afc33237351b6'),
+        codekataSolvedIds: [
+          ObjectId('68b7aa601b9afc3323735191'),
+          ObjectId('68b7aa601b9afc3323735192'),
+          ObjectId('68b7cd1d1b9afc3323735194'),
+          ObjectId('68b7cded1b9afc3323735197')
+        ]
+      },
+      {
+        _id: ObjectId('68b80faa1b9afc33237351a7'),
+        name: 'User3',
+        dob: ISODate('1999-02-07T00:00:00.000Z'),
+        age: 25,
+        role: 'Student',
+        mentorId: ObjectId('68b80a701b9afc33237351a2'),
+        companyId: ObjectId('68b815491b9afc33237351b6'),
+        codekataSolvedIds: []
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b815561b9afc33237351b7'),
+    compantId: 3,
+    companyName: 'tcs',
+    driveDate: ISODate('2020-11-18T00:00:00.000Z'),
+    driveUsers: []
+  },
+  {
+    _id: ObjectId('68b815641b9afc33237351b8'),
+    compantId: 4,
+    companyName: 'wipro',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    driveUsers: []
+  },
+  {
+    _id: ObjectId('68b815871b9afc33237351b9'),
+    compantId: 5,
+    companyName: 'cts',
+    driveDate: ISODate('2020-10-15T00:00:00.000Z'),
+    driveUsers: []
+  }
+]
+zen-class-task> db.companydrives.aggregate([{$lookup:{ from: "users",localField:"_id",foreignField:"companyId", as: "driveUsers"}},{$project:{"driveUsers.name":1,companyName:1,_id:0}}])
+[
+  { companyName: 'hcl', driveUsers: [] },
+  {
+    companyName: 'infosys',
+    driveUsers: [ { name: 'User1' }, { name: 'User2' }, { name: 'User3' } ]
+  },
+  { companyName: 'tcs', driveUsers: [] },
+  { companyName: 'wipro', driveUsers: [] },
+  { companyName: 'cts', driveUsers: [] }
+]
+zen-class-task> //Find the number of problems solved by the user in codekata
+
+zen-class-task> db.users.find({codekatasolvedIds:{$exists:true}})
+
+zen-class-task> db.users.find({})
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  }
+]
+zen-class-task> db.users.find({codekataSolvedIds:{$exists:true}})
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  }
+]
+zen-class-task> db.users.find({codekataSolvedIds:{$exists:true,$ne:[]}})
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  }
+]
+zen-class-task> db.users.find({codekataSolvedIds:{$exists:true,$ne:[]}})
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  }
+]
+zen-class-task> //Find all the mentors with who has the mentee's count more than 15
+
+zen-class-task> db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as: "UsersMentor"}},{$project:{mentorName:1,_id:0}}])
+[
+  { mentorName: 'vijai' },
+  { mentorName: 'vivek' },
+  { mentorName: 'seetha' }
+]
+zen-class-task> db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as: "UsersMentor"}},{$project:{mentorName:1,_id:0,menteeCount:{$size:"$UsersMentor"}},{$match:{menteeCount:{$gte:15}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:173)
+
+> 1 | db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as: "UsersMentor"}},{$project:{mentorName:1,_id:0,menteeCount:{$size:"$UsersMentor"}},{$match:{menteeCount:{$gte:15}}}}])
+    |                               ^
+  2 |
+
+zen-class-task> db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as: "UsersMentor"}},{$project:{mentorName:1,_id:0,menteeCount:{$size:"$UsersMentor"}},{$match:{menteeCount:{$gte:15}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:173)
+
+> 1 | db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as: "UsersMentor"}},{$project:{mentorName:1,_id:0,menteeCount:{$size:"$UsersMentor"}},{$match:{menteeCount:{$gte:15}}}}])
+    |                               ^
+  2 |
+
+zen-class-task> db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as:"UsersMentor"}},{ $project:{mentorName:1,__id:0,menteeCount:{$size:"$UsersMentor"}}},{ $match:{menteeCount:{$gte:15}}}])
+
+zen-class-task> db.mentors.aggregate([{ $lookup:{from:"users",localField:"_id",foreignField:"mentorId",as:"UsersMentor"}},{ $project:{mentorName:1,_id:0,menteeCount:{$size:"$UsersMentor"}}},{ $match:{menteeCount:{$gte:10}}}])
+[ { mentorName: 'vijai', menteeCount: 14 } ]
+zen-class-task> //Find the number of users who are absent and task is not submitted  between 15 oct-2020 and 31-oct-2020
+
+zen-class-task> db.users.find()
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ]
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000')
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$taskassigned" },{ $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted":false, "attendanceRecords.status":"Absent", "taskassigned.taskSub":{ $gte:ISODate("2020-10-15T00:00:00.000Z"), $lte:ISODate("2020-10-31T23:59:59.999Z") }, "attendanceRecords.date":{ $gte:ISODate("2020-10-15T00:00:00.000Z"), $lte:ISODate("2020-10-31T23:59:59.999Z") } } },{ $group:{ _id:"$_id", name:{ $first:"$name" }, tasksNotSubmitted:{ $push:"$taskassigned.taskId" }, absentDates:{ $push:"$attendanceRecords.date" } } },{ $facet:{ users:[{ $project:{ _id:1, name:1, tasksNotSubmitted:1, absentDates:1 }}], totalCount:[{ $count:"usersAbsentAndTaskNotSubmitted" }] } }])
+[ { users: [], totalCount: [] } ]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }])
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: [
+      {
+        taskId: ObjectId('68b8086a1b9afc332373519f'),
+        taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+        isSubmitted: true
+      },
+      {
+        taskId: ObjectId('68b8089d1b9afc33237351a0'),
+        taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+        isSubmitted: false
+      }
+    ],
+    attendanceRecords: [
+      {
+        _id: ObjectId('68b7a70a1b9afc332373518b'),
+        userId: ObjectId('68b79ffd1b9afc3323735189'),
+        date: ISODate('2020-09-01T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b7a70a1b9afc332373518c'),
+        userId: ObjectId('68b79ffd1b9afc3323735189'),
+        date: ISODate('2020-09-02T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b7a70a1b9afc332373518d'),
+        userId: ObjectId('68b79ffd1b9afc3323735189'),
+        date: ISODate('2020-09-03T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b7a70a1b9afc332373518e'),
+        userId: ObjectId('68b79ffd1b9afc3323735189'),
+        date: ISODate('2020-09-04T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b7a70a1b9afc332373518f'),
+        userId: ObjectId('68b79ffd1b9afc3323735189'),
+        date: ISODate('2020-09-05T00:00:00.000Z'),
+        status: 'Absent'
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b7a5cc1b9afc332373518a'),
+    name: 'Rajavasanthan',
+    dob: ISODate('1989-01-01T00:00:00.000Z'),
+    age: 36,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a5'),
+    name: 'User1',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a6'),
+    name: 'User2',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a7'),
+    name: 'User3',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    companyId: ObjectId('68b815491b9afc33237351b6'),
+    codekataSolvedIds: [],
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b80faa1b9afc33237351a8'),
+    name: 'User4',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351a9'),
+    name: 'User5',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351aa'),
+    name: 'User6',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ab'),
+    name: 'User7',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b810071b9afc33237351ac'),
+    name: 'User8',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: [
+      {
+        _id: ObjectId('68b82f831b9afc33237351ba'),
+        userId: ObjectId('68b810071b9afc33237351ac'),
+        date: ISODate('2020-10-17T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b830531b9afc33237351bb'),
+        userId: ObjectId('68b810071b9afc33237351ac'),
+        date: ISODate('2020-10-21T00:00:00.000Z'),
+        status: 'Absent'
+      },
+      {
+        _id: ObjectId('68b830531b9afc33237351bc'),
+        userId: ObjectId('68b810071b9afc33237351ac'),
+        date: ISODate('2020-10-25T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b830531b9afc33237351bd'),
+        userId: ObjectId('68b810071b9afc33237351ac'),
+        date: ISODate('2020-10-14T00:00:00.000Z'),
+        status: 'Present'
+      },
+      {
+        _id: ObjectId('68b830531b9afc33237351be'),
+        userId: ObjectId('68b810071b9afc33237351ac'),
+        date: ISODate('2020-10-31T00:00:00.000Z'),
+        status: 'Absent'
+      }
+    ]
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ad'),
+    name: 'User9',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351ae'),
+    name: 'User10',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351af'),
+    name: 'User11',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b8106b1b9afc33237351b0'),
+    name: 'User12',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b1'),
+    name: 'User13',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b811551b9afc33237351b2'),
+    name: 'User14',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b3'),
+    name: 'User15',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  },
+  {
+    _id: ObjectId('68b811891b9afc33237351b4'),
+    name: 'User16',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a4'),
+    codekataSolvedIds: [],
+    companyId: ObjectId('000000000000000000000000'),
+    attendanceRecords: []
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" }])
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8086a1b9afc332373519f'),
+      taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+      isSubmitted: true
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518b'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-01T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8086a1b9afc332373519f'),
+      taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+      isSubmitted: true
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518c'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-02T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8086a1b9afc332373519f'),
+      taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+      isSubmitted: true
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518d'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-03T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8086a1b9afc332373519f'),
+      taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+      isSubmitted: true
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518e'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-04T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8086a1b9afc332373519f'),
+      taskSub: ISODate('2020-10-17T00:00:00.000Z'),
+      isSubmitted: true
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518f'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-05T00:00:00.000Z'),
+      status: 'Absent'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518b'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-01T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518c'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-02T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518d'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-03T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518e'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-04T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518f'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-05T00:00:00.000Z'),
+      status: 'Absent'
+    }
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false }])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:228)
+
+> 1 | db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false }])
+    |                                                                                      ^
+  2 |
+
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false }}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:229)
+
+> 1 | db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false }}}])
+    |                                                                                       ^
+  2 |
+
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" }, { $match:{ "taskassigned.isSubmitted": false } }])
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518b'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-01T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518c'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-02T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518d'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-03T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518e'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-04T00:00:00.000Z'),
+      status: 'Present'
+    }
+  },
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518f'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-05T00:00:00.000Z'),
+      status: 'Absent'
+    }
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } }, { $unwind:"$taskassigned" }, { $unwind:"$attendanceRecords" }, { $match:{ "taskassigned.isSubmitted": false, "attendanceRecords.status":'Absent' } }])
+[
+  {
+    _id: ObjectId('68b79ffd1b9afc3323735189'),
+    name: 'Ragaswetha',
+    dob: ISODate('1999-02-07T00:00:00.000Z'),
+    age: 25,
+    role: 'Student',
+    mentorId: ObjectId('68b80a701b9afc33237351a2'),
+    codekataSolvedIds: [
+      ObjectId('68b7aa601b9afc3323735191'),
+      ObjectId('68b7aa601b9afc3323735192'),
+      ObjectId('68b7cd1d1b9afc3323735194'),
+      ObjectId('68b7cded1b9afc3323735197')
+    ],
+    companyId: ObjectId('000000000000000000000000'),
+    taskassigned: {
+      taskId: ObjectId('68b8089d1b9afc33237351a0'),
+      taskSub: ISODate('2020-10-25T00:00:00.000Z'),
+      isSubmitted: false
+    },
+    attendanceRecords: {
+      _id: ObjectId('68b7a70a1b9afc332373518f'),
+      userId: ObjectId('68b79ffd1b9afc3323735189'),
+      date: ISODate('2020-09-05T00:00:00.000Z'),
+      status: 'Absent'
+    }
+  }
+]
+zen-class-task> db.users.aggregate([
+...   { $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },
+...   { $unwind:"$taskassigned" },
+...   { $unwind:"$attendanceRecords" },
+...   { $match:{ "taskassigned.isSubmitted": false, "attendanceRecords.status": "Absent" } },
+...   { $lookup:{ from:"tasks", localField:"taskassigned.taskId", foreignField:"_id", as:"taskDetails" } },
+...   { $unwind:"$taskDetails" },
+...   { $project:{ _id:0, name:1, "taskName":"$taskDetails.taskName", "taskId":"$taskassigned.taskId", "attendanceDate":"$attendanceRecords.date" }}
+... ])
+[
+  {
+    name: 'Ragaswetha',
+    taskName: 'Login Screen',
+    taskId: ObjectId('68b8089d1b9afc33237351a0'),
+    attendanceDate: ISODate('2020-09-05T00:00:00.000Z')
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$tzen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$taskassigned" },{ $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false, "attendanceRecords.status":"Absent" } },{ $lookup:{ from:"tasks", localField:"taskassigned.taskId", foreignField:"_id", as:"taskDetails" } },{ $unwind:"$taskDetails" },{ $project:{ _id:0, name:1, taskNataskName:"$taskDetails.taskName", taskId:"$taskassigned.taskId", attendanceDate:"$attendanceRecords.date" } }])
+[
+  {
+    name: 'Ragaswetha',
+    taskName: 'Login Screen',
+    taskId: ObjectId('68b8089d1b9afc33237351a0'),
+    attendanceDate: ISODate('2020-09-05T00:00:00.000Z')
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$taskassigned" },{ $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false, "attendanceRecords.status":"Absent" } },{ $lookup:{ from:"tasks", localField:"taskassigned.taskId", foreignField:"_id", as:"taskDetails" } },{ $unwind:"$taskDetails" },{ $project:{ _id:0, name:1, taskName:"$taskDetails.taskName", taskId:"$taskassigned.taskId", attendanceDate:"$attendanceRecords.date", attendanceStatus:"$attendanceRecords.status" }}])
+[
+  {
+    name: 'Ragaswetha',
+    taskName: 'Login Screen',
+    taskId: ObjectId('68b8089d1b9afc33237351a0'),
+    attendanceDate: ISODate('2020-09-05T00:00:00.000Z'),
+    attendanceStatus: 'Absent'
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$taskassigned" },{ $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false, "attendanceRecords.status":"Absent" } },{ $lookup:{ from:"tasks", localField:"taskassigned.taskId", foreignField:"_id", as:"taskDetails" } },{ $unwind:"$taskDetails" },{ $project:{ _id:0, name:1, taskName:"$taskDetails.taskName", taskId:"$taskassigned.taskId", taskSubmitted:"$taskassigned.isSubmitted",attendanceDate:"$attendanceRecords.date", attendanceStatus:"$attendanceRecords.status" } }])
+[
+  {
+    name: 'Ragaswetha',
+    taskName: 'Login Screen',
+    taskId: ObjectId('68b8089d1b9afc33237351a0'),
+    taskSubmitted: false,
+    attendanceDate: ISODate('2020-09-05T00:00:00.000Z'),
+    attendanceStatus: 'Absent'
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$taskassigned" },{ $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false, "attendanceRecords.status":"Absent" } },{ $lookup:{ from:"tasks", localField:"taskassigned.taskId", foreignField:"_id", as:"taskDetails" } },{ $unwind:"$taskDetails" },{ $project:{ _id:0, name:1, taskName:"$taskDetails.taskName", taskId:"$taskassigned.taskId", taskSubmitted:"$taskassigned.isSubmitted",taskDueDate:"$taskassigned.taskSub",attendanceDate:"$attendanceRecords.date", attendanceStatus:"$attendanceRecords.status" } }])
+[
+  {
+    name: 'Ragaswetha',
+    taskName: 'Login Screen',
+    taskId: ObjectId('68b8089d1b9afc33237351a0'),
+    taskSubmitted: false,
+    taskDueDate: ISODate('2020-10-25T00:00:00.000Z'),
+    attendanceDate: ISODate('2020-09-05T00:00:00.000Z'),
+    attendanceStatus: 'Absent'
+  }
+]
+zen-class-task> db.users.aggregate([{ $lookup:{ from:"attendance", localField:"_id", foreignField:"userId", as:"attendanceRecords" } },{ $unwind:"$taskassigned" },{ $unwind:"$attendanceRecords" },{ $match:{ "taskassigned.isSubmitted": false, "taskassigned.taskSub":{$gte:new Date('2020-09-30'), $lte:new Date('2020-11-01')}, "attendanceRecords.status":"Absent" } },{ $lookup:{ from:"tasks", localField:"taskassigned.taskId", foreignField:"_id", as:"taskDetails" } },{ $unwind:"$taskDetails" },{ $project:{ _id:0, name:1, taskName:"$taskDetails.taskName", taskId:"$taskassigned.taskId", taskSubmitted:"$taskassigned.isSubmitted",taskDueDate:"$taskassigned.taskSub",attendanceDate:"$attendanceRecords.date", attendanceStatus:"$attendanceRecords.status" } }])
+[
+  {
+    name: 'Ragaswetha',
+    taskName: 'Login Screen',
+    taskId: ObjectId('68b8089d1b9afc33237351a0'),
+    taskSubmitted: false,
+    taskDueDate: ISODate('2020-10-25T00:00:00.000Z'),
+    attendanceDate: ISODate('2020-09-05T00:00:00.000Z'),
+    attendanceStatus: 'Absent'
+  }
+]
+zen-class-task>
