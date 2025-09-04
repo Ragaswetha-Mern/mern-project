@@ -1,5 +1,5 @@
 import Body from "./components/body/Body";
-import Footer from "./components/footer/footer";
+import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import { ToastContainer } from "react-toastify";
 import "./index.css";
