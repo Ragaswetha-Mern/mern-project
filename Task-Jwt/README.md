@@ -49,8 +49,8 @@ See `config/config.env` for configuration options.
 ---
 For more API endpoints, see the routes in `routes/authRoute.js`.
 
+## Here Base Url is https://jwtservice.onrender.com
 ## GET USER: {{base_url}}/api/v1/User/GetProfileById/68bca65d44cd4a38712980f2
-## Here Base Url is http://localhost:3000
 
 ## LOGIN: {{base_url}}/api/v1/User/Login
 {

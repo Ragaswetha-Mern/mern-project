@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "1eb7c1b8-fcce-4fd7-a856-4daf74f109d8",
-		"name": "SWETHA GUVI JWT TASK",
+		"_postman_id": "b54c0b3f-e881-4ac0-a645-917d1c45cc0b",
+		"name": "SWETHA GUVI JWT TASK -RENDER HOSTED",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42635865"
 	},
@@ -27,15 +27,15 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/api/v1/User/CreateUser",
+									"raw": "{{base_url_cloud}}/api/v1/User/CreateProfile",
 									"host": [
-										"{{base_url}}"
+										"{{base_url_cloud}}"
 									],
 									"path": [
 										"api",
 										"v1",
 										"User",
-										"CreateUser"
+										"CreateProfile"
 									]
 								}
 							},
@@ -47,16 +47,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/v1/User/GetProfileById/67d526374c831975547f0e3f",
+									"raw": "{{base_url_cloud}}/api/v1/User/GetProfileById/68bd03454058a9cbd2d7b853",
 									"host": [
-										"{{base_url}}"
+										"{{base_url_cloud}}"
 									],
 									"path": [
 										"api",
 										"v1",
 										"User",
 										"GetProfileById",
-										"67d526374c831975547f0e3f"
+										"68bd03454058a9cbd2d7b853"
 									]
 								}
 							},
@@ -74,7 +74,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"vijaianandhbtechit@gmail.com\",\r\n    \"password\": \"Sripada2498\"\r\n}",
+							"raw": "{\r\n    \"email\": \"ragaswetha07@gmail.com\",\r\n    \"password\": \"Sripada@2498\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,9 +82,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/User/Login",
+							"raw": "{{base_url_cloud}}/api/v1/User/Login",
 							"host": [
-								"{{base_url}}"
+								"{{base_url_cloud}}"
 							],
 							"path": [
 								"api",
@@ -102,9 +102,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/v1/User/Logout",
+							"raw": "{{base_url_cloud}}/api/v1/User/Logout",
 							"host": [
-								"{{base_url}}"
+								"{{base_url_cloud}}"
 							],
 							"path": [
 								"api",
