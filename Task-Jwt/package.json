@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-  "start": "node server.js",
-  "dev": "Set NODE_ENV=development&&nodemon server.js",
-  "prod": "Set NODE_ENV=production&&node server.js"
+    "start": "node server.js",
+    "dev": "Set NODE_ENV=development&&nodemon server.js",
+    "prod": "Set NODE_ENV=production&&node server.js"
   },
   "author": "RAGASWETHA",
   "license": "ISC",
@@ -17,7 +17,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^1.0.0",
+    "mongoose": "^8.18.0",
     "nodemailer": "^6.10.0",
     "validator": "^13.12.0"
   },
