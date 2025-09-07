@@ -75,21 +75,6 @@ const InvoiceForm = ({ clientInfo, onChange }) => {
             }}
           />
           Client Information
-          <span
-            className="inline-badge"
-            style={{
-              marginLeft: "1.2em",
-              background: "#fff",
-              color: "#6366f1",
-              padding: "0.28em 0.9em",
-              borderRadius: "10px",
-              fontWeight: 600,
-              fontSize: "1em",
-              boxShadow: "0 1px 6px rgba(99,102,241,0.09)",
-            }}
-          >
-            Required
-          </span>
         </span>
         <button
           type="button"

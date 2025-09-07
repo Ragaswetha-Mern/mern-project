@@ -113,21 +113,6 @@ const LineItemsTable = ({ items, onAdd, onEdit, onDelete, editingIndex }) => {
           />
         </span>
         Line Items
-        <span
-          className="inline-badge"
-          style={{
-            marginLeft: "1.2em",
-            background: "#fff",
-            color: "#10b981",
-            padding: "0.28em 0.9em",
-            borderRadius: "10px",
-            fontWeight: 600,
-            fontSize: "1em",
-            boxShadow: "0 1px 6px rgba(16,185,129,0.09)",
-          }}
-        >
-          Items
-        </span>
         <button
           type="button"
           aria-expanded={open}
