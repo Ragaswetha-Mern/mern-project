@@ -1,0 +1,20 @@
+body,
+html {
+  font-family: "Poppins", "Segoe UI", "Roboto", "Arial", sans-serif;
+}
+
+.card-header h2 {
+  font-family: "Poppins", "Segoe UI", "Roboto", "Arial", sans-serif;
+  font-weight: 600;
+}
+
+.btn svg {
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
+.card-header {
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}

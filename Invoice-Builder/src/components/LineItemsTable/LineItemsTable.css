@@ -1,0 +1,32 @@
+/* Styles specific to LineItemsTable component */
+.line-items-table thead tr {
+  background: #f1f5f9;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 1.2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background: #fff;
+}
+
+th,
+td {
+  border: 1px solid #e5e7eb;
+  padding: 0.7em 1em;
+  text-align: left;
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background: #f8fafc;
+}
