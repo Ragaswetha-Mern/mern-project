@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "1eb7c1b8-fcce-4fd7-a856-4daf74f109d8",
+		"name": "SWETHA GUVI JWT TASK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42635865"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "User: Profile",
+					"item": [
+						{
+							"name": "Create Profile",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n    \"name\": \"RAGASWETHA VIJAI ANANDH\",\r\n    \"email\": \"ragaswetha07@gmail.com\",\r\n    \"password\": \"Sripada@2498\",\r\n    \"avator\": \"user.png\"\r\n    \r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/User/CreateUser",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"User",
+										"CreateUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Profile By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/User/GetProfileById/67d526374c831975547f0e3f",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"User",
+										"GetProfileById",
+										"67d526374c831975547f0e3f"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"vijaianandhbtechit@gmail.com\",\r\n    \"password\": \"Sripada2498\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/User/Login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"User",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/User/Logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"User",
+								"Logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

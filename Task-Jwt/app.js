@@ -1,0 +1,10 @@
+const express = require("express");
+const app = express();
+const errorHandlingMiddleware = require("./middlewares/errorHandlingMiddleware");
+const authRoute = require("./routes/authRoute");
+const cookieParser = require("cookie-parser");
+app.use(express.json());
+app.use(cookieParser());
+app.use("/api/v1/", authRoute);
+app.use(errorHandlingMiddleware);
+module.exports = app;
