@@ -5,12 +5,7 @@ import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 Chart.register(ArcElement, Tooltip, Legend);
 
 const ExpenseChart = ({ expenses, categories }) => {
-  const colors = [
-    "#a78bfa", // purple
-    "#60a5fa", // blue
-    "#fbbf24", // yellow
-    "#f472b6", // pink
-  ];
+  const colors = ["#a78bfa", "#60a5fa", "#fbbf24", "#f472b6"];
   const data = {
     labels: categories,
     datasets: [
@@ -26,7 +21,6 @@ const ExpenseChart = ({ expenses, categories }) => {
     ],
   };
 
-  // Custom legend
   const legendItems = categories.map((cat, idx) => {
     const total = expenses
       .filter((e) => e.category === cat)

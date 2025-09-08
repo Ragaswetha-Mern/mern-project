@@ -246,7 +246,6 @@ function AddExpense({
             </div>
 
             <div className="flex justify-between items-center mt-6 gap-6">
-              {/* Car animation: moves left as expenses are added */}
               <div
                 className="car-animation-container flex flex-col items-center w-1/2 relative"
                 style={{ height: "80px" }}
