@@ -69,11 +69,10 @@ const InvoicePreview = ({
         background: "#fff",
         padding: "0",
         overflow: "hidden",
-        minHeight: "400px", // static reasonable min height
+        minHeight: "400px",
         position: "relative",
       }}
     >
-      {/* Header styled like InvoiceSettings */}
       <div
         style={{
           display: "flex",
@@ -179,14 +178,12 @@ const InvoicePreview = ({
         </div>
       </div>
 
-      {/* Collapsible body */}
       {open && (
         <div
           ref={htmlExportRef}
           className="card-body preview-body"
           style={{ padding: "2.2rem" }}
         >
-          {/* Client Info & Logo */}
           <div
             style={{
               display: "flex",

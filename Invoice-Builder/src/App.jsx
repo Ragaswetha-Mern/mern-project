@@ -104,7 +104,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-100">
-      {/* Header */}
       <header className="bg-gradient-to-r from-indigo-600 via-indigo-600 to-indigo-500 text-white shadow-lg shadow-indigo-900/10">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <h1 className="text-2xl font-semibold tracking-tight flex items-center gap-2">
@@ -119,9 +118,7 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="w-full px-2 md:px-8 py-8 space-y-6">
-        {/* Row 1: InvoiceForm, LineItemsTable, TotalsSection */}
         <div className="flex flex-col md:flex-row gap-8 items-stretch w-full">
           <div className="flex-1 min-w-0 bg-white rounded-xl shadow p-6">
             <InvoiceForm
@@ -148,7 +145,6 @@ function App() {
           </div>
         </div>
 
-        {/* Row 2: InvoicePreview, InvoiceSettings */}
         <div className="flex flex-col md:flex-row gap-8 items-stretch w-full min-h-[400px]">
           <div className="flex-1 min-w-0 bg-white rounded-xl shadow p-6">
             <InvoicePreview
@@ -172,7 +168,6 @@ function App() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="text-center text-xs text-slate-500 py-6">
         © {new Date().getFullYear()} Invoice Builder
       </footer>
