@@ -31,14 +31,13 @@ function App() {
     const saved = localStorage.getItem("favorites");
     return saved ? JSON.parse(saved) : [];
   });
+  const [headerSearch, setHeaderSearch] = useState(""); // <-- Add this line
   const navigate = useNavigate();
 
-  // For details page
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [detailsLoading, setDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState("");
 
-  // Load default movies
   useEffect(() => {
     fetchMovies(searchTerm, currentPage);
   }, []);
@@ -47,7 +46,6 @@ function App() {
     if (searchTerm) {
       fetchMovies(searchTerm, currentPage, filterType);
     }
-    // eslint-disable-next-line
   }, [searchTerm, currentPage, filterType]);
 
   useEffect(() => {
@@ -105,12 +103,23 @@ function App() {
     setFavorites(favorites.filter((fav) => fav.imdbID !== imdbID));
   };
 
+  const handleFavoriteToggle = (movie) => {
+    const isFav = favorites.some((fav) => fav.imdbID === movie.imdbID);
+    let updated;
+    if (isFav) {
+      updated = favorites.filter((fav) => fav.imdbID !== movie.imdbID);
+    } else {
+      updated = [...favorites, movie];
+    }
+    setFavorites(updated);
+    localStorage.setItem("favorites", JSON.stringify(updated));
+  };
+
   return (
     <div className="App min-h-screen bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] relative flex flex-col">
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/80 via-transparent to-[#203a43]/60 pointer-events-none z-0" />
 
-      {/* Header */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-gradient-to-r from-[#232526] via-[#414345] to-[#232526] shadow-2xl border-b-4 border-[#00a8e1]">
         <nav className="flex flex-wrap items-center justify-between px-4 md:px-10 py-3 gap-2 md:gap-0">
           <div className="flex items-center gap-4 text-[#00a8e1] text-3xl font-black tracking-wide">
@@ -118,10 +127,43 @@ function App() {
             <Link
               to="/"
               className="hover:text-white transition-transform duration-200 scale-100 hover:scale-105"
+              onClick={() => {
+                setSearchTerm(DEFAULT_SEARCH);
+                setCurrentPage(1);
+                fetchMovies(DEFAULT_SEARCH, 1, filterType);
+              }}
             >
               CineWave
             </Link>
           </div>
+          <form
+            className="relative flex items-center w-full max-w-md mx-auto"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (headerSearch.trim()) {
+                setSearchTerm(headerSearch.trim());
+                setCurrentPage(1);
+              }
+            }}
+          >
+            <input
+              type="text"
+              className="w-full pl-12 pr-4 py-3 rounded-full bg-[#232526] text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-[#00a8e1] transition-all duration-200 text-lg"
+              placeholder="Search for movies, events..."
+              value={headerSearch}
+              onChange={(e) => setHeaderSearch(e.target.value)}
+            />
+            <span className="absolute left-4 text-[#00a8e1] text-2xl pointer-events-none">
+              <FaPaperPlane />
+            </span>
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#00a8e1] hover:bg-[#203a43] text-white px-4 py-2 rounded-full font-bold shadow-md transition-all duration-200"
+              title="Search"
+            >
+              Go
+            </button>
+          </form>
           <div className="flex items-center gap-6 flex-wrap">
             <Link
               to="/"
@@ -166,7 +208,7 @@ function App() {
             {!chatMinimized && (
               <div className="flex flex-col gap-2 p-4">
                 <div className="bg-[#203a43] text-white rounded-lg px-4 py-3 mb-2 self-start max-w-[80%]">
-                  Hi! What movie, event, or episode are you looking for?
+                  Hi! What movie, event... are you looking for?
                 </div>
                 {searchTerm && (
                   <div className="bg-[#1e293b] text-white rounded-lg px-4 py-3 mb-2 self-end max-w-[80%]">
@@ -268,7 +310,6 @@ function App() {
                     <option value="">All</option>
                     <option value="movie">Movie</option>
                     <option value="series">Series</option>
-                    <option value="episode">Episode</option>
                   </select>
                 </div>
                 {loading && (
@@ -298,19 +339,19 @@ function App() {
                 {!loading &&
                   !error &&
                   (movies.length > 0 ? (
-                    <>
-                      <MovieList
-                        movies={movies}
-                        onMovieClick={handleMovieClick}
-                      />
-                      <Pagination
-                        currentPage={currentPage}
-                        totalPages={
-                          totalResults > 10 ? Math.ceil(totalResults / 10) : 1
-                        }
-                        onPageChange={handlePageChange}
-                      />
-                    </>
+                    <MovieList
+                      movies={movies}
+                      onMovieClick={handleMovieClick}
+                      favorites={favorites}
+                      onFavoriteToggle={handleFavoriteToggle}
+                      currentPage={currentPage}
+                      totalPages={
+                        totalResults > 10 ? Math.ceil(totalResults / 10) : 1
+                      }
+                      onPageChange={handlePageChange}
+                      chatOpen={chatOpen}
+                      setChatOpen={setChatOpen}
+                    />
                   ) : (
                     <div className="text-center p-4 text-white">
                       No movies found.
