@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.21"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.13"
+  }
+}
