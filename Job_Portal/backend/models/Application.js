@@ -19,9 +19,7 @@ const applicationSchema = new mongoose.Schema(
       ],
       default: "applied",
     },
-  resume: { type: String },
-  interviewDate: { type: Date },
-  notes: { type: String },
+    resume: { type: String },
   },
   { timestamps: true }
 );

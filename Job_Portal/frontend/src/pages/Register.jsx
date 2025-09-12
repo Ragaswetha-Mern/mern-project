@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import { useState } from "react";
-import logo from "../assets/images/logo.png";
 import { apiFetch } from "../utils/http";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -45,7 +44,7 @@ export default function Register() {
           <div className="flex flex-col items-center mb-10">
             <div className="flex items-center gap-4 mb-2">
               <img
-                src={logo}
+                src="/assets/images/logo.png"
                 alt="Job Portal Logo"
                 className="w-16 h-16 rounded-full shadow-lg border border-green-200"
               />
