@@ -50,11 +50,26 @@ exports.applyJob = async (req, res) => {
         .json({ message: "You already applied for this job." });
     }
 
-    // Save application logic here (store resumeFile.path if needed)
+    // Overwrite resume in File collection (same as uploadUserFile)
+    const File = require("../models/File");
+    await File.findOneAndUpdate(
+      { user: req.user._id, type: "resume" },
+      {
+        user: req.user._id,
+        type: "resume",
+        filename: resumeFile.originalname,
+        contentType: resumeFile.mimetype,
+        data: resumeFile.buffer,
+        uploadedAt: new Date(),
+      },
+      { upsert: true, new: true, strict: false }
+    );
+
+    // Save application logic here (store resumeFile.filename)
     const application = new Application({
       job: jobId,
       applicant: req.user._id,
-      resume: resumeFile.filename, // or resumeFile.path
+      resume: resumeFile.originalname,
     });
 
     await application.save();

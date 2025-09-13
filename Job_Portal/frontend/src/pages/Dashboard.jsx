@@ -121,7 +121,7 @@ export default function Dashboard() {
               <div className="flex flex-col items-center">
                 {user.profilePic ? (
                   <img
-                    src={`${API_BASE}/uploads/profile_pics/${user.profilePic}`}
+                    src={`${API_BASE}/api/user-file/${user._id}/profilePic`}
                     alt="Profile"
                     className="h-10 w-10 rounded-full object-cover border-2 border-green-300 shadow mb-2"
                   />
@@ -136,7 +136,7 @@ export default function Dashboard() {
               <div className="flex flex-col items-center">
                 {user.profilePic ? (
                   <img
-                    src={`${API_BASE}/uploads/profile_pics/${user.profilePic}`}
+                    src={`${API_BASE}/api/user-file/${user._id}/profilePic`}
                     alt="Profile"
                     className="h-24 w-24 rounded-full object-cover border-4 border-green-300 shadow"
                   />
@@ -262,7 +262,6 @@ export default function Dashboard() {
             {user.email}
           </span>
         </div>
-        {/* Recommendations Card - Professional Placement */}
         {user && user.role === "jobseeker" && (
           <div className="w-full max-w-5xl mx-auto mb-8">
             <div className="bg-gradient-to-r from-green-100 to-green-50 rounded-2xl shadow-lg p-6 border border-green-200 flex flex-col">
@@ -293,14 +292,22 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-500">
                         {job.requirements}
                       </span>
-                      <button
-                        className="mt-2 bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-all w-fit"
-                        onClick={() =>
-                          navigate(`/jobs/${job._id}`, { replace: false })
-                        }
-                      >
-                        View Job
-                      </button>
+                      <div className="flex gap-2 mt-2">
+                        <button
+                          className="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-all w-fit"
+                          onClick={() =>
+                            navigate(`/jobs/${job._id}`, { replace: false })
+                          }
+                        >
+                          View
+                        </button>
+                        <button
+                          className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-all w-fit"
+                          onClick={() => navigate(`/apply/${job._id}`)}
+                        >
+                          Apply
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -309,7 +316,6 @@ export default function Dashboard() {
           </div>
         )}
         <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 gap-y-6 mx-auto">
-          {/* Profile Card */}
           <div className="bg-white rounded-2xl shadow-lg p-3 sm:p-6 border border-green-100 flex flex-col items-center">
             <FaUser className="h-10 w-10 text-green-500 mb-2" />
             <h2 className="text-xl font-bold text-green-700 mb-1">Profile</h2>
@@ -330,7 +336,6 @@ export default function Dashboard() {
               <FaUserCircle className="h-5 w-5" /> Change Password
             </button>
           </div>
-          {/* Recent Activity Card */}
           <div className="bg-white rounded-2xl shadow-lg p-3 sm:p-6 border border-green-100 flex flex-col items-center w-full min-w-0">
             <FaHistory className="h-10 w-10 text-green-500 mb-2" />
             <h2 className="text-xl font-bold text-green-700 mb-1">
@@ -366,7 +371,6 @@ export default function Dashboard() {
               </span>
             </button>
           </div>
-          {/* Quick Actions Card */}
           <div className="bg-white rounded-2xl shadow-lg p-3 sm:p-6 border border-green-100 flex flex-col items-center w-full min-w-0">
             <FaPlusCircle className="h-10 w-10 text-green-500 mb-2" />
             <h2 className="text-xl font-bold text-green-700 mb-1">
@@ -423,7 +427,6 @@ export default function Dashboard() {
             </button>
           </div>
         </div>
-        {/* Modal for Change Password */}
         {showModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
             <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full relative">

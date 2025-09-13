@@ -175,7 +175,6 @@ export default function ManageApplications() {
                   </button>
                 </>
               )}
-              {/* Resume Modal */}
               {resumeUrl && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                   <div className="bg-white rounded-xl shadow-2xl p-6 max-w-2xl w-full relative flex flex-col items-center">

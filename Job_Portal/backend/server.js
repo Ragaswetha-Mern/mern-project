@@ -28,6 +28,9 @@ app.use("/api/profile", profileRoutes);
 const companyRoutes = require("./routes/company");
 app.use("/api/company-profile", companyRoutes);
 
+const userFileRoutes = require("./routes/userFile");
+app.use("/api/user-file", userFileRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 mongoose

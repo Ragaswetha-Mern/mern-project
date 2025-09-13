@@ -40,7 +40,6 @@ export default function Register() {
     <>
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-200">
         <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-10 border border-green-100">
-          {/* Header */}
           <div className="flex flex-col items-center mb-10">
             <div className="flex items-center gap-4 mb-2">
               <img
@@ -60,7 +59,6 @@ export default function Register() {
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="mb-2 text-red-500 text-center flex items-center justify-center gap-2">
@@ -178,7 +176,6 @@ export default function Register() {
             </button>
           </form>
 
-          {/* Footer */}
           <div className="mt-8 text-center">
             <a
               href="/login"

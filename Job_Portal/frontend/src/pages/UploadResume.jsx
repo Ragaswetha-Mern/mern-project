@@ -14,27 +14,36 @@ export default function UploadResume() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [resume, setResume] = useState("");
+  const [resumeFilename, setResumeFilename] = useState("");
   const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
-  // Fetch current resume on mount
+  // Fetch current resume from DB on mount
   useEffect(() => {
     async function fetchResume() {
       try {
-        const res = await apiFetch("/api/resume/view", {
-          method: "GET",
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-        setResume(res.resume || "");
+        if (!user.id) return;
+        const res = await fetch(
+          `${API_BASE}/api/user-file/${user.id}/resume/meta`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          setResume(true);
+          setResumeFilename(data.filename || "resume");
+        } else {
+          setResume("");
+          setResumeFilename("");
+        }
       } catch {
         setResume("");
+        setResumeFilename("");
       }
     }
     fetchResume();
-  }, []);
+  }, [API_BASE, user]);
 
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await apiFetch("/api/resume/delete", {
+      await apiFetch(`/api/user-file/${user.id}/resume`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
@@ -61,30 +70,35 @@ export default function UploadResume() {
         return;
       }
       const formData = new FormData();
-      formData.append("resume", file);
-      const res = await fetch(
-        `${API_BASE}/api/resume${resume ? "/update" : "/upload"}`,
-        {
-          method: resume ? "PUT" : "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        }
-      );
+      formData.append("file", file);
+      formData.append("fileType", "resume");
+      const res = await fetch(`${API_BASE}/api/user-file/upload`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
       const data = await res.json();
       if (!res.ok) {
         toast.error(data.message || "Failed to upload resume");
         setLoading(false);
         return;
       }
-      toast.success(
-        resume
-          ? "Resume updated successfully!"
-          : "Resume uploaded successfully!"
-      );
+      toast.success("Resume uploaded successfully!");
       setFile(null);
-      setResume(data.resume); // Use backend response filename
+      // Fetch latest resume metadata
+      const metaRes = await fetch(
+        `${API_BASE}/api/user-file/${user.id}/resume/meta`
+      );
+      if (metaRes.ok) {
+        const meta = await metaRes.json();
+        setResume(true);
+        setResumeFilename(meta.filename || "resume");
+      } else {
+        setResume(true);
+        setResumeFilename("");
+      }
     } catch (err) {
       toast.error(err.message || "Failed to upload resume");
     } finally {
@@ -162,27 +176,19 @@ export default function UploadResume() {
             {resume ? "Your Resume" : "Upload Resume"}
           </h2>
         </div>
-        {resume && (
+        {resume && user.id && (
           <div className="flex flex-col gap-2 mb-4">
             <span className="text-green-700 font-semibold">
               Current Resume:
             </span>
             <a
-              href={`${API_BASE}/uploads/resumes/${resume}`}
+              href={`${API_BASE}/api/user-file/${user.id}/resume`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-green-600 text-sm font-medium underline font-semibold hover:text-blue-800"
             >
-              {user.name + "_" + resume}
+              {resumeFilename || user.name + "_resume"}
             </a>
-            <button
-              type="button"
-              className="bg-red-500 text-white py-2 rounded-lg font-bold shadow hover:bg-red-700 transition-all text-sm mt-2"
-              onClick={handleDelete}
-              disabled={loading}
-            >
-              Delete Resume
-            </button>
           </div>
         )}
         <div className="flex flex-col gap-2">
@@ -217,6 +223,16 @@ export default function UploadResume() {
             ? "Update Resume"
             : "Upload Resume"}
         </button>
+        {resume && (
+          <button
+            type="button"
+            className="bg-red-500 text-white py-2 rounded-lg font-bold shadow hover:bg-red-700 transition-all text-sm mt-2"
+            onClick={handleDelete}
+            disabled={loading}
+          >
+            Delete Resume
+          </button>
+        )}
       </form>
     </div>
   );

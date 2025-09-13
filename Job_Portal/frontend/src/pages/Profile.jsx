@@ -18,6 +18,7 @@ export default function Profile() {
   const [preview, setPreview] = useState(null);
   const [fileName, setFileName] = useState("");
   const [error, setError] = useState("");
+  const [profilePicExists, setProfilePicExists] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +28,16 @@ export default function Profile() {
       return;
     }
     apiFetch("/api/profile", { method: "GET" })
-      .then(setProfile)
+      .then(async (data) => {
+        setProfile(data);
+        // Check if profilePic exists in DB
+        if (data._id) {
+          const res = await fetch(
+            `${API_BASE}/api/user-file/${data._id}/profilePic`
+          );
+          setProfilePicExists(res.ok);
+        }
+      })
       .catch(() => navigate("/login"));
   }, [navigate]);
 
@@ -43,32 +53,29 @@ export default function Profile() {
 
   const handleProfilePicUpload = async (fileInput) => {
     const file = fileInput.files[0];
-    if (!file) return;
-
-    const myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      `Bearer ${localStorage.getItem("token")}`
-    );
-
-    const formdata = new FormData();
-    formdata.append("profilePic", file);
-
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: formdata,
-      redirect: "follow",
-    };
-
+    if (!file || !profile?._id) return;
+    setUploading(true);
+    setError("");
+    setFileName(file.name);
+    // Preview
+    const reader = new FileReader();
+    reader.onloadend = () => setPreview(reader.result);
+    reader.readAsDataURL(file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileType", "profilePic");
     try {
-      const response = await fetch(
-        `${API_BASE}/api/profile/upload-pic`,
-        requestOptions
-      );
-      const result = await response.json();
-      console.log(result);
-      setProfile(result);
+      const res = await fetch(`${API_BASE}/api/user-file/upload`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      });
+      const result = await res.json();
+      if (!res.ok)
+        throw new Error(result.message || "Profile photo upload failed!");
+      setProfilePicExists(true);
       setUploading(false);
       setPreview(null);
       setFileName("");
@@ -83,12 +90,13 @@ export default function Profile() {
   };
 
   const handleRemovePic = async () => {
+    if (!profile?._id) return;
     try {
-      const result = await apiFetch("/api/profile/remove-pic", {
+      await apiFetch(`/api/user-file/${profile._id}/profilePic`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      setProfile(result);
+      setProfilePicExists(false);
       toast.success("Profile photo removed!");
     } catch (err) {
       toast.error(err.message || "Failed to remove profile photo!");
@@ -112,9 +120,9 @@ export default function Profile() {
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover border-4 border-green-300 shadow mb-3"
             />
-          ) : profile.profilePic ? (
+          ) : profilePicExists ? (
             <img
-              src={`${API_BASE}/uploads/profile_pics/${profile.profilePic}`}
+              src={`${API_BASE}/api/user-file/${profile._id}/profilePic`}
               alt="Profile"
               className="w-32 h-32 rounded-full object-cover border-4 border-green-300 shadow mb-3"
             />
