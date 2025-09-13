@@ -90,6 +90,13 @@ export default function PostJob() {
         className="bg-white rounded-2xl shadow-xl p-10 border border-green-100 w-full max-w-xl flex flex-col gap-6"
         onSubmit={handleSubmit}
       >
+        <button
+          type="button"
+          className="mb-4 self-start bg-green-100 text-green-700 px-4 py-2 rounded-lg font-semibold hover:bg-green-200 transition-all"
+          onClick={() => navigate("/dashboard")}
+        >
+          ← Go back to Dashboard
+        </button>
         <div className="flex items-center gap-3 mb-6">
           <FaBriefcase className="h-8 w-8 text-green-600" />
           <h2 className="text-3xl font-extrabold text-green-700 font-sans tracking-tight">

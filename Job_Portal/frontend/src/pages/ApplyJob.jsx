@@ -66,6 +66,9 @@ export default function ApplyJob() {
       const userId = user._id || user.id;
       fetch(`${API_BASE}/api/user-file/${userId}/resume`).then((res) => {
         setExistingResumeAvailable(res.ok);
+        if (!res.ok) {
+          setResumeChoice("new");
+        }
       });
     }
   }, [user]);
