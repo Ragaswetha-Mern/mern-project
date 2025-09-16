@@ -53,6 +53,10 @@ export default function PostJob() {
         company: userCompanies[0]._id,
       }));
     }
+    // Show modal if no company registered (on load)
+    if (userCompanies.length === 0) {
+      setShowCompanyModal(true);
+    }
   }, [userCompanies]);
 
   const handleChange = (e) => {
@@ -61,11 +65,6 @@ export default function PostJob() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // If no company registered, show modal
-    if (!userCompanies || userCompanies.length === 0) {
-      setShowCompanyModal(true);
-      return;
-    }
     // Required field validation
     if (
       !form.company ||
