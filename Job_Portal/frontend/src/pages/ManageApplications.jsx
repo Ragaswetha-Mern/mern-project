@@ -169,7 +169,13 @@ export default function ManageApplications() {
                 <>
                   <button
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded font-semibold shadow hover:bg-blue-700 transition mt-3"
-                    onClick={() => setResumeUrl(app.resume)}
+                    onClick={() =>
+                      setResumeUrl(
+                        `${API_BASE}/api/user-file/${
+                          app.applicant?._id || app.applicant?.id
+                        }/resume`
+                      )
+                    }
                   >
                     <FaEye /> View Resume
                   </button>
@@ -187,34 +193,26 @@ export default function ManageApplications() {
                     <h2 className="text-lg font-bold mb-4 text-blue-700">
                       Resume Preview
                     </h2>
-                    {resumeUrl.endsWith(".pdf") ? (
-                      <iframe
-                        src={
-                          resumeUrl.startsWith("http")
-                            ? resumeUrl
-                            : `${API_BASE}/uploads/resumes/${resumeUrl}`
-                        }
-                        title="Resume PDF"
-                        className="w-full h-96 border rounded"
-                      />
-                    ) : (
-                      <embed
-                        src={
-                          resumeUrl.startsWith("http")
-                            ? resumeUrl
-                            : `${API_BASE}/uploads/resumes/${resumeUrl}`
-                        }
-                        className="w-full h-96 border rounded"
-                        type="application/pdf"
-                      />
-                    )}
+                    <iframe
+                      src={resumeUrl}
+                      title="Resume PDF"
+                      className="w-full h-96 border rounded"
+                    />
                     <div className="flex gap-4 mt-4">
                       <a
-                        href={
-                          resumeUrl.startsWith("http")
-                            ? resumeUrl
-                            : `${API_BASE}/uploads/resumes/${resumeUrl}`
-                        }
+                        href={`${API_BASE}/api/user-file/${
+                          applications.find(
+                            (appItem) =>
+                              `${API_BASE}/api/user-file/${
+                                appItem.applicant?._id || appItem.applicant?.id
+                              }/resume` === resumeUrl
+                          )?.applicant?._id ||
+                          applications.find(
+                            (appItem) =>
+                              `${API_BASE}/api/user-file/${appItem.applicant?.id}/resume` ===
+                              resumeUrl
+                          )?.applicant?.id
+                        }/resume`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 underline font-semibold hover:text-blue-800"
