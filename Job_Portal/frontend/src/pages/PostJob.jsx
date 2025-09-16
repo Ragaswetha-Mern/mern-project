@@ -118,7 +118,7 @@ export default function PostJob() {
                 className="bg-green-600 text-white px-6 py-2 rounded font-bold shadow hover:bg-green-700 transition-all"
                 onClick={() => {
                   setShowCompanyModal(false);
-                  navigate("/company-profile");
+                  navigate("/create-company-profile");
                 }}
               >
                 Yes, Register Company
