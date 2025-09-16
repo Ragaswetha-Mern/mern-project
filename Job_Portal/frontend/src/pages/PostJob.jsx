@@ -53,9 +53,13 @@ export default function PostJob() {
         company: userCompanies[0]._id,
       }));
     }
-    // Show modal if no company registered (on load)
-    if (userCompanies.length === 0) {
-      setShowCompanyModal(true);
+    // Show modal only if fetch is done and no company exists
+    if (Array.isArray(userCompanies)) {
+      if (userCompanies.length === 0) {
+        setShowCompanyModal(true);
+      } else {
+        setShowCompanyModal(false);
+      }
     }
   }, [userCompanies]);
 
