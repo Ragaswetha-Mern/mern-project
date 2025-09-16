@@ -112,13 +112,22 @@ export default function PostJob() {
   const selectedCompany = userCompanies.find((c) => c._id === form.company);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-200 font-sans">
-      {companyLoading ? (
-        <div className="flex items-center justify-center w-full h-full">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-200 font-sans relative">
+      {/* Loader overlay with blur effect */}
+      {companyLoading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black bg-opacity-10">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-green-600 border-opacity-50 mx-auto" />
         </div>
-      ) : (
-        showCompanyModal && (
+      )}
+      {/* Main content, blurred if loading */}
+      <div
+        className={
+          companyLoading
+            ? "w-full h-full pointer-events-none blur-sm"
+            : "w-full h-full"
+        }
+      >
+        {showCompanyModal && !companyLoading && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
             <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full flex flex-col items-center">
               <h3 className="text-xl font-bold text-red-600 mb-4">
@@ -153,8 +162,15 @@ export default function PostJob() {
               </div>
             </div>
           </div>
-        )
-      )}
+        )}
+        {/* ...existing form and content... */}
+        <form
+          className="bg-white rounded-2xl shadow-xl p-10 border border-green-100 w-full max-w-xl flex flex-col gap-6"
+          onSubmit={handleSubmit}
+        >
+          {/* ...existing form fields and buttons... */}
+        </form>
+      </div>
       <form
         className="bg-white rounded-2xl shadow-xl p-10 border border-green-100 w-full max-w-xl flex flex-col gap-6"
         onSubmit={handleSubmit}
