@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { apiFetch } from "../utils/http";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -12,6 +13,7 @@ export default function Register() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigator = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -28,6 +30,9 @@ export default function Register() {
         body: { name, email, password, role },
       });
       toast.success("Registration successful!");
+      setTimeout(() => {
+        navigator("/login");
+      }, 500);
     } catch (err) {
       toast.error(err.message);
       setError(err.message);
