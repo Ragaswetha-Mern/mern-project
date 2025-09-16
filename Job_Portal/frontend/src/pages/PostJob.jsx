@@ -21,12 +21,14 @@ export default function PostJob() {
     company: undefined,
   });
   const [loading, setLoading] = useState(false);
+  const [companyLoading, setCompanyLoading] = useState(true);
   const [userCompanies, setUserCompanies] = useState([]);
   const navigate = useNavigate();
 
   // Fetch current user's companies for dropdown
   useEffect(() => {
     const fetchCompanies = async () => {
+      setCompanyLoading(true);
       try {
         const res = await apiFetch("/api/company-profile/me", {
           method: "GET",
@@ -38,9 +40,13 @@ export default function PostJob() {
             ...prev,
             company: res._id, // Set ObjectId for company
           }));
+        } else {
+          setUserCompanies([]);
         }
       } catch {
         setUserCompanies([]);
+      } finally {
+        setCompanyLoading(false);
       }
     };
     fetchCompanies();
@@ -53,15 +59,17 @@ export default function PostJob() {
         company: userCompanies[0]._id,
       }));
     }
-    // Show modal only if fetch is done and no company exists
-    if (Array.isArray(userCompanies)) {
-      if (userCompanies.length === 0) {
-        setShowCompanyModal(true);
-      } else {
-        setShowCompanyModal(false);
+    // Only show modal if fetch is done
+    if (!companyLoading) {
+      if (Array.isArray(userCompanies)) {
+        if (userCompanies.length === 0) {
+          setShowCompanyModal(true);
+        } else {
+          setShowCompanyModal(false);
+        }
       }
     }
-  }, [userCompanies]);
+  }, [userCompanies, companyLoading]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -105,41 +113,47 @@ export default function PostJob() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-200 font-sans">
-      {showCompanyModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full flex flex-col items-center">
-            <h3 className="text-xl font-bold text-red-600 mb-4">
-              No Company Registered
-            </h3>
-            <p className="text-gray-700 mb-6 text-center">
-              You must register a company before posting a job.
-              <br />
-              Would you like to register a company now?
-            </p>
-            <div className="flex gap-4">
-              <button
-                type="button"
-                className="bg-green-600 text-white px-6 py-2 rounded font-bold shadow hover:bg-green-700 transition-all"
-                onClick={() => {
-                  setShowCompanyModal(false);
-                  navigate("/create-company-profile");
-                }}
-              >
-                Yes, Register Company
-              </button>
-              <button
-                type="button"
-                className="bg-gray-200 text-green-700 px-6 py-2 rounded font-semibold hover:bg-gray-300"
-                onClick={() => {
-                  setShowCompanyModal(false);
-                  navigate("/dashboard");
-                }}
-              >
-                No, Go to Dashboard
-              </button>
+      {companyLoading ? (
+        <div className="flex items-center justify-center w-full h-full">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-green-600 border-opacity-50 mx-auto" />
+        </div>
+      ) : (
+        showCompanyModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+            <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full flex flex-col items-center">
+              <h3 className="text-xl font-bold text-red-600 mb-4">
+                No Company Registered
+              </h3>
+              <p className="text-gray-700 mb-6 text-center">
+                You must register a company before posting a job.
+                <br />
+                Would you like to register a company now?
+              </p>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  className="bg-green-600 text-white px-6 py-2 rounded font-bold shadow hover:bg-green-700 transition-all"
+                  onClick={() => {
+                    setShowCompanyModal(false);
+                    navigate("/create-company-profile");
+                  }}
+                >
+                  Yes, Register Company
+                </button>
+                <button
+                  type="button"
+                  className="bg-gray-200 text-green-700 px-6 py-2 rounded font-semibold hover:bg-gray-300"
+                  onClick={() => {
+                    setShowCompanyModal(false);
+                    navigate("/dashboard");
+                  }}
+                >
+                  No, Go to Dashboard
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )
       )}
       <form
         className="bg-white rounded-2xl shadow-xl p-10 border border-green-100 w-full max-w-xl flex flex-col gap-6"
